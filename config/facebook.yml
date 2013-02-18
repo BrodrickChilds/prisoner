@@ -7,5 +7,5 @@ test:
   secret: 397a1a088b973d5fe6f7b1446c98471b
 
 production:
-  app_id: 23456
-  secret: 397a1a088b973d5fe6f7b1446c98471b
+  app_id: 212052785607548 
+  secret: 781d7b6dd8c8af66d5507313cf350d76
