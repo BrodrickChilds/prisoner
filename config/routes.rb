@@ -3,6 +3,7 @@ Prisoner::Application.routes.draw do
   get "games/create"
 
   get "games/show"
+  get "games/index"
 
   get "games/respond"
 

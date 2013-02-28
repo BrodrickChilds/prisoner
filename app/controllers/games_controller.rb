@@ -3,9 +3,10 @@ class GamesController < ApplicationController
   end
   
   def index
-    if current_user.stage == 1
+    if current_user && current_user.stage == 1
       Game.generate_tutorial(current_user)
     end
+    @games = Game.all
   end
 
   def show
