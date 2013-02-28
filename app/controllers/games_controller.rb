@@ -3,13 +3,15 @@ class GamesController < ApplicationController
   end
   
   def index
-    if current_user && current_user.latest_stage == 1
+    @games = Game.where(:user_id => current_user.id, :seen_bit => false)
+    if current_user && current_user.latest_stage == 1 && @games.size == 0
       Game.generate_tutorial(current_user)
     end
-    @games = Game.all
+    @games = Game.where(:user_id => current_user.id)
   end
 
   def show
+    @game = Game.find(params[:id])
   end
 
   def respond

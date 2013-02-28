@@ -1,4 +1,4 @@
 -@games.each do |game|
   .game
-    =game.id
+    =link_to game.id, game_path(game.id)
 
