@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  stage: 
+  opp_id: 
+  user_strat: 
+  opp_strat: 
+  complete: 
+  seen_bit: false
+
+two:
+  stage: 
+  opp_id: 
+  user_strat: 
+  opp_strat: 
+  complete: 
+  seen_bit: false

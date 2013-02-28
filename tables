@@ -1,0 +1,8 @@
+Game table:
+
+user_id:int, stage:int, opp_id:int, user_strat:bool, opp_strat:bool, complete:bool, user_seen_bit:bool
+
+add to user: score:int, latest_stage:int
+
+
+Workflow: go to site - one request from computer.  Complete game.  Repeat several times.
