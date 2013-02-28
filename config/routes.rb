@@ -1,10 +1,7 @@
 Prisoner::Application.routes.draw do
-
-  get "games/create"
-
-  get "games/show"
-
-  get "games/respond"
+  resources "games" do
+    get "respond"
+  end
 
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
