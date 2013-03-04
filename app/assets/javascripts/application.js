@@ -17,7 +17,7 @@
 
 $(document).ready(function(){
 	$(function() {
-		$( 'button:submit').button();
+		$( '.btn').button();
 
             });
     });

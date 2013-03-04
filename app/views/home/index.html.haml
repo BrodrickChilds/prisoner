@@ -1,6 +1,17 @@
 
-%h1 Welcome, Prisoner!
-%p You will never get out of here:)
-=link_to "Waiting Games", games_path
+-if current_user
+  %br
+  .summary
+    Prisoner, welcome to Shoreside Maximum Security Prison.  I don’t got all day, so I’m gonna say this once.  You and your accomplices will be here for a while, so get used to the place.  Every day you’ll be allowed to do some activities, be smart about them and you might just see some time off that sentence, be stupid, and you’ll be seeing my face for a long longer.  
+  %br
+  //<button type='submit'> Enter</button>
+  =button_to "Enter", games_path, :method => :get, :class => "btn"
+  %br
+  =link_to "(Waiting Games)" + @games.size.to_s, games_path
+-else
+  %h2 Hello?  You there, sign in.
 
-<button type='submit'> Enter</button>
+
+
+
+
