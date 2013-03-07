@@ -1,6 +1,7 @@
 Prisoner::Application.routes.draw do
   resources "games" do
-    get "respond"
+    put "respond"
+    get "results"
   end
 
   match 'auth/:provider/callback', to: 'sessions#create'
