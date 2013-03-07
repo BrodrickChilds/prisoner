@@ -1,10 +1,13 @@
 
 -if current_user
-  %br
-  .summary
-    Prisoner, welcome to Shoreside Maximum Security Prison.  I don’t got all day, so I’m gonna say this once.  You and your accomplices will be here for a while, so get used to the place.  Every day you’ll be allowed to do some activities, be smart about them and you might just see some time off that sentence, be stupid, and you’ll be seeing my face for a long longer.  
-  %br
+  / .summary
+  /   Prisoner, welcome to Shoreside Maximum Security Prison.  I don’t got all day, so I’m gonna say this once.  You and your accomplices will be here for a while, so get used to the place.  Every day you’ll be allowed to do some activities, be smart about them and you might just see some time off that sentence, be stupid, and you’ll be seeing my face for a long longer.  
   //<button type='submit'> Enter</button>
+  .image
+  %img{:alt => "", :src => "assets/jail.png"}/
+
+
+
   =button_to "Enter", games_path, :method => :get, :class => "btn"
   %br
   =link_to "(Waiting Games)" + @games.size.to_s, games_path
