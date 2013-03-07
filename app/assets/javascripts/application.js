@@ -17,7 +17,15 @@
 
 $(document).ready(function(){
 	$(function() {
-		$( 'button:submit').button();
+		$( '.btn').button();
 
             });
+            
+         $('.bxslider').bxSlider({
+  				minSlides: 2,
+ 				 maxSlides: 3,
+  				slideWidth: 170,
+  				slideMargin: 10,
+  				captions: true
+		});
     });
