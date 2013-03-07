@@ -1,4 +1,15 @@
--@games.each do |game|
-  .game
-    =link_to game.id, game_path(game.id)
 
+
+%h1 Choose where you want to go next
+
+ 
+-@games.each do |game| 
+  %ul{:class=>"bxslider"}
+    %li
+      =link_to image_tag("front1.jpg",:title=>"Kitchen"),game_path(game.id)
+    %li 
+      =link_to image_tag("front1.jpg",:title=>"Cell")
+    %li 
+      =image_tag("front1.jpg",:title=>"Prison Yard")
+    %li
+      =image_tag("front1.jpg",:title=>"Investigation Office")
