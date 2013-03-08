@@ -9,7 +9,7 @@
 
   =button_to "Enter", games_path, :method => :get, :class => "btn"
   %br
-  =link_to "(Waiting Games)" + @games.size.to_s, games_path
+  =link_to "Waiting Games (" + @games.size.to_s + ")", games_path
 -else
   %h2 Hello?  You there, sign in.
 
