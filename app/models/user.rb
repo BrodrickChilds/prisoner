@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
 private
   def default_values
-    self.score ||= 0;
-    self.latest_stage ||= 1;
+    score ||= 0;
+    latest_stage ||= 1;
   end
 end
