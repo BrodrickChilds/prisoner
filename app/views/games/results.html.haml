@@ -1,4 +1,6 @@
 %h1 Game results
+.location
+  Game in the #{@game.stage.name}
 -if current_user.id == @game.user_id
   .current-user-is-user
     .opponent
@@ -33,4 +35,6 @@
       =@opp
 
 .actions
-  =link_to "Back to games", games_path
+  =link_to "Back to " + @game.stage.name, @game.stage
+  %br
+  =link_to "Back to Stages", stages_path

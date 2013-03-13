@@ -1,0 +1,22 @@
+%p#notice= notice
+
+%p
+  %b Level:
+  = @stage.level
+%p
+  %b Name:
+  = @stage.name
+
+.games
+  -@games.each do |game|
+    .game
+      =link_to "Game " + game.id.to_s, game
+
+
+= link_to 'Edit', edit_stage_path(@stage)
+\|
+= link_to 'Back', stages_path
+
+%br
+
+=link_to "Create game", new_game_path(:level => @stage.level)

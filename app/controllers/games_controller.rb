@@ -19,6 +19,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def waiting_responses
+    @games = current_user.opp_games.where(:seen_bit => false, :complete => true)
+  end
+
   def respond
     @game = Game.find(params[:game_id])
     if @game.resolve(params[:strategy])
@@ -34,20 +38,23 @@ class GamesController < ApplicationController
     @opp = @opp.name
     @user = User.find(@game.user_id)
     @user = @user.name
+    if @game.opponent == current_user
+      @game.seen
+    end
   end
 
   def new
+    @stage = params[:level]
     @game = Game.new
   end
 
   def create
     game = Game.create(params[:game])
-    game.stage = current_user.latest_stage
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
     if game.save
-      redirect_to games_path
+      redirect_to stages_path
     else
       redirect_to new_game_path, :notice => "Game could not be created"
     end

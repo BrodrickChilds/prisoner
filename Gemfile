@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'heroku'
 gem 'certified'
+gem 'seed_dumper'
 
 group :development, :test do
   gem 'sqlite3'
@@ -18,6 +19,9 @@ end
 gem 'omniauth-facebook'
 gem 'haml-rails'
 
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.
