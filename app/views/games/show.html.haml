@@ -1,3 +1,13 @@
 %h1
   Game
   =@game.id
+
+.respond
+  =link_to "Betray", game_respond_path(@game, :strategy => true), :method => :put
+  =link_to "Don't Betray", game_respond_path(@game, :strategy => false), :method => :put
+
+.info
+  Opponent:
+  =@opponent
+.controls
+  =link_to "Back to games", games_path

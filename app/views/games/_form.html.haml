@@ -1,0 +1,9 @@
+=form_for(@game) do |f|
+  .form-dropdown
+    =f.label :Strategy
+    =f.select :opp_strat, [true, false]
+  .form-text
+    =f.label :Opponent
+    =f.text_field :user_id
+  .form-submit
+    =f.submit
