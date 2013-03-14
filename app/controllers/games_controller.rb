@@ -37,17 +37,17 @@ class GamesController < ApplicationController
   end
 
   def new
+    @stage = params[:level]
     @game = Game.new
   end
 
   def create
     game = Game.create(params[:game])
-    game.stage = current_user.latest_stage
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
     if game.save
-      redirect_to games_path
+      redirect_to stages_path
     else
       redirect_to new_game_path, :notice => "Game could not be created"
     end

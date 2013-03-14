@@ -5,5 +5,7 @@
   .form-text
     =f.label :Opponent
     =f.text_field :user_id
+  .form-hidden
+    =f.hidden_field :stage_id, :value => @stage
   .form-submit
     =f.submit
