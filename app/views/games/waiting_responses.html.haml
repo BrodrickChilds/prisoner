@@ -1,0 +1,4 @@
+%h2 Results of your sent games!
+
+-@games.each do |game|
+  =link_to "Results of game against #{game.user.name}", game_results_path(game.id)
