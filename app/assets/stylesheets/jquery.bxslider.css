@@ -18,15 +18,17 @@
 	position: relative;
 	margin: 0 auto 60px;
 	padding: 0;
-	*zoom: 1;
+	zoom: 1;
 	background:#000;
+	min-width: 500px; 
 }
 
 .bx-wrapper img {
 	max-width: 100%;
-	min-width:130px;
-	min-height:400px;
+	min-width:140px;
+	min-height:350px;
 	display: block;
+	margin-bottom:20px;
 }
 
 /** THEME
@@ -38,7 +40,7 @@
 	box-shadow: 0 0 5px #ccc;
 	border: solid #000 5px;
 	left: -5px;
-	background: #000;
+	/*background:url('concrete.png');*/
 }
 
 .bx-wrapper .bx-pager,
@@ -192,7 +194,7 @@
 }
 
 .bx-wrapper .bx-caption span {
-	color: #000;
+	color: #ff0000;
 	font-family: cracked;
 	display: block;
 	font-size: .95em;
