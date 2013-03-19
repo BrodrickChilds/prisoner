@@ -1,4 +1,7 @@
 Prisoner::Application.routes.draw do
+  resources :stages
+
+
   resources "games" do
     put "respond"
     get "results"
