@@ -16,7 +16,7 @@ class StagesController < ApplicationController
     @stage = Stage.find(params[:id])
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     if current_user && @stage.level == 1 && @games.size == 0
-      Game.generate_tutorial(current_user)
+      Game.generate_tutorial(current_user, @stage.id)
     end
 
 

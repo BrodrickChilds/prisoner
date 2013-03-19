@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'heroku'
 gem 'certified'
+gem 'seed_dumper'
 
 group :development, :test do
   gem 'sqlite3'
