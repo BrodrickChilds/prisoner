@@ -20,5 +20,5 @@
       =link_to "Betray", game_respond_path(@game, :strategy => true), :method => :put
       =link_to "Don't Betray", game_respond_path(@game, :strategy => false), :method => :put
 .controls
-  =link_to "Back to games", games_path
+  =link_to "Back to " + @game.stage.name, @game.stage
 

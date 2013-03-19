@@ -3,6 +3,11 @@ class StagesController < ApplicationController
   # GET /stages.json
   def index
     @stages = Stage.all
+    @games_and_stages = []
+    @stages.each do |stage|
+      games = stage.games.where(:user_id => current_user.id, :complete => false)
+      @games_and_stages.append({:stage => stage, :games => games.size})
+    end
 
     respond_to do |format|
       format.html # index.html.erb

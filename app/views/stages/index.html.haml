@@ -1,10 +1,13 @@
-- @stages.each do |stage|
+- @games_and_stages.each do |game_stage|
   .stage
-    =stage.level
-    =stage.name
-    =link_to 'Show', stage
-    =link_to 'Edit', edit_stage_path(stage)
-    =link_to 'Destroy', stage, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    =game_stage[:stage].level
+    =game_stage[:stage].name
+    =link_to 'Show', game_stage[:stage]
+    =link_to 'Edit', edit_stage_path(game_stage[:stage])
+    =link_to 'Destroy', game_stage[:stage], :method => :delete, :data => { :confirm => 'Are you sure?' }
+    (
+    =game_stage[:games]
+    )
 
 %br
 
