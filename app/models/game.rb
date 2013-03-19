@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   belongs_to :stage
 
   def self.generate_tutorial(user)
-    game = Game.new(user_id: user.id, stage: 1, opp_id: user.id, user_strat: false, opp_strat: [true, false].sample, complete: false, seen_bit: false) 
+    game = Game.new(user_id: user.id, stage_id: 1, opp_id: user.id, user_strat: false, opp_strat: [true, false].sample, complete: false, seen_bit: false) 
     game.save
   end
 
