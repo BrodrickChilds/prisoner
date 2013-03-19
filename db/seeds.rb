@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Stage.create(:id => 1, :level => 1, :name => "Training")
+Stage.create(:id => 2, :level => 2, :name => "Kitchen")
+Stage.create(:id => 3, :level => 3, :name => "Cell")
+Stage.create(:id => 4, :level => 4, :name => "Yard")
+Stage.create(:id => 5, :level => 5, :name => "Office")

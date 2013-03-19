@@ -7,8 +7,10 @@
   %b Name:
   = @stage.name
 
--@stage.games.each do |game|
-  =link_to game.id, game
+.games
+  -@games.each do |game|
+    .game
+      =link_to "Game " + game.id.to_s, game
 
 
 = link_to 'Edit', edit_stage_path(@stage)
