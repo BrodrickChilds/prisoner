@@ -8,6 +8,8 @@ class StagesController < ApplicationController
       games = stage.games.where(:user_id => current_user.id, :complete => false)
       @games_and_stages.append({:stage => stage, :games => games.size})
     end
+    unseen_games = current_user.opp_games.where(:seen_bit => false, :complete => true)
+    @unseen_count = unseen_games.size
 
     respond_to do |format|
       format.html # index.html.erb
