@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   #before_save :default_values
   attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score
-  has_many :games
+  has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|

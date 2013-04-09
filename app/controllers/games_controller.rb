@@ -19,6 +19,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def waiting_responses
+    @games = current_user.opp_games.where(:seen_bit => false, :complete => true)
+  end
+
   def respond
     @game = Game.find(params[:game_id])
     if @game.resolve(params[:strategy])
@@ -34,6 +38,9 @@ class GamesController < ApplicationController
     @opp = @opp.name
     @user = User.find(@game.user_id)
     @user = @user.name
+    if @game.opponent == current_user
+      @game.seen
+    end
   end
 
   def new

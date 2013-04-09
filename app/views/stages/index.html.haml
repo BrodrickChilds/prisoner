@@ -1,11 +1,9 @@
-- @stages.each do |stage|
+- @games_and_stages.each do |game_stage|
   .stage
-    =stage.level
-    =stage.name
-    =link_to 'Show', stage
-    =link_to 'Edit', edit_stage_path(stage)
-    =link_to 'Destroy', stage, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    =game_stage[:stage].name
+    =link_to 'Show', game_stage[:stage]
+    (#{game_stage[:games]})
+
+=link_to "Results of your challenges (#{@unseen_count})", game_responses_path
 
 %br
-
-= link_to 'New Stage', new_stage_path

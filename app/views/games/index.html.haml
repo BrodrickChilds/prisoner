@@ -1,6 +1,6 @@
 
 
-%h1 Choose where you want to go next
+%h1 YOU SHOULDN'T BE AT THIS PAGE ANYMORE.  TELL ME IF YOU GOT HERE SOMEHOW -BRODY
 
  
 -@games.each do |game| 
@@ -22,3 +22,61 @@
 .actions
   =link_to "Create game", new_game_path
 
+-@games.each do |game| 
+  =link_to game.id, game
+  %ul{:class=>"bxslider"}
+    %li
+      =link_to image_tag("Kitchen2.jpg",:title=>"Kitchen"),game_path(game.id)
+    %li 
+      =link_to image_tag("prison_cell1.jpg",:title=>"Cell")
+    %li 
+      =image_tag("Yard.jpg",:title=>"Prison Yard")
+    %li
+      =image_tag("officer.jpg",:title=>"Investigation Office")
+    %li
+      =image_tag("dinning.jpg",:title=>"Dinning")
+    %li
+      =image_tag("work.jpg",:title=>"Work")
+      
+
+
+-@games.each do |game|
+  =link_to game.id,game
+  #carousel.row-fluid
+  .span12
+    #headingCarousel.carousel.slide
+      %script{:type=>"text/javascript", :src=>"javascripts/bootstrap-carousel.js" }
+      %script{:type=>"text/javascript"} 
+        $('.carousel').carousel();
+      -# carousel items
+      #carousel-inner
+        .item.active
+          =link_to image_tag("Kitchen2.jpg",:title=>"Kitchen"),game_path(game.id)
+        .item
+          =link_to image_tag("Kitchen2.jpg",:title=>"Kitchen"),game_path(game.id)
+        .item
+          =link_to image_tag("Kitchen2.jpg",:title=>"Kitchen"),game_path(game.id)
+        .item
+          =link_to image_tag("Kitchen2.jpg",:title=>"Kitchen"),game_path(game.id)
+        .item
+          =link_to image_tag("Kitchen2.jpg",:title=>"Kitchen"),game_path(game.id)
+      -# carousel nav controls
+      %a(class="carousel-control left" href="#headingCarousel" data-slide="prev")& &lsaquo;
+      %a(class="carousel-control right" href="#headingCarousel" data-slide="next")& &rsaquo;
+    %hr
+    -# # %div{:class=> "carousel slide", :id=>"myCarousel"}
+      -# # %ol{:class=>"carousel-indicators"}
+        -# # %li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        -# # %li data-target="#myCarousel" data-slide-to="1"></li>
+        -# # %li data-target="#myCarousel" data-slide-to="2"></li>
+-# # 
+    -# # %div {:class=>"carousel-inner"}
+        -# # %div{:class=>"active item"}
+          -# # =link_to image_tag("prison_cell1.jpg",:title=>"Cell")
+        -# # %div{:class=>"item"} 
+          -# # =link_to image_tag("prison_cell1.jpg",:title=>"Cell")
+        -# # %div{:class=>"item"}
+          -# # =link_to image_tag("prison_cell1.jpg",:title=>"Cell")
+-# # 
+    -# # %a {:class=>"carousel-control left", :href=>"#myCarousel" ,:data-slide=>"prev" &lsaquo}
+    -# # %a {:class=>"carousel-control right", :href=>"#myCarousel" ,:data-slide=>"next"}
