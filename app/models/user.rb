@@ -33,6 +33,14 @@ class User < ActiveRecord::Base
     return friend_ids
   end
 
+  def self.opponent_name(opp, user)
+    if opp = user
+      return "AI"
+    else
+      return opp.name
+    end
+  end
+
 private
   def default_values
     self.score ||= 0

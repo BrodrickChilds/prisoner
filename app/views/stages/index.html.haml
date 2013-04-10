@@ -1,8 +1,6 @@
 - @games_and_stages.each do |game_stage|
   .stage
-    =game_stage[:stage].name
-    =link_to 'Show', game_stage[:stage]
-    (#{game_stage[:games]})
+    =link_to "#{game_stage[:stage].name} (#{game_stage[:games]})", game_stage[:stage]
 
 =link_to "Results of your challenges (#{@unseen_count})", game_responses_path
 
