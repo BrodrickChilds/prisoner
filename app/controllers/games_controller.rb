@@ -50,6 +50,8 @@ class GamesController < ApplicationController
 
   def create
     game = Game.create(params[:game])
+    game.user_id = params[:game][:user_tokens]
+    print params[:game]
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id

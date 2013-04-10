@@ -3,23 +3,35 @@
 <head>
   <title>Prisoner</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "application", "token-input" %>
+  <%= javascript_include_tag "jquery.tokeninput" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <%= link_to "Prisoner", root_path, {:class => "brand"} %>
+      <ul class="nav">
+        <% if current_user %>
+          <li>
+            <%= link_to "Sign out", signout_path, id: "sign_out" %>
+          </li>
+          <li>
+            <%= link_to current_user.name, users_path(current_user.id) %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
-<div id="user_nav">
-<%= link_to "Home", root_path %>
-
-  <% if current_user %>
-    Signed in as <strong><%= current_user.name %></strong>
-    <%= link_to "Sign out", signout_path, id: "sign_out" %>
-  <% else %>
-    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-  <% end %>
+  <%= yield %>
 </div>
-
-<%= yield %>
 
 </body>
 </html>
