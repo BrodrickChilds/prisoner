@@ -11,12 +11,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    if @game.opp_id == @game.user_id
-      @opponent = "AI"
-    else
-      @opponent = User.find(@game.opp_id)
-      @opponent = @opponent.name
-    end
+    @opp_user = User.find(@game.opp_id)
+    @opponent = User.opponent_name(@opp_user, current_user)
   end
 
   def waiting_responses
@@ -34,8 +30,8 @@ class GamesController < ApplicationController
 
   def results
     @game = Game.find(params[:game_id])
-    @opp = User.find(@game.opp_id)
-    @opp = @opp.name
+    @opp_user = User.find(@game.opp_id)
+    @opp = User.opponent_name(@opp_user, current_user)
     @user = User.find(@game.user_id)
     @user = @user.name
     if @game.opponent == current_user
@@ -50,13 +46,15 @@ class GamesController < ApplicationController
 
   def create
     game = Game.create(params[:game])
+    game.user_id = params[:game][:user_tokens]
+    print params[:game]
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
-    if game.save
+    if game.save && game.user_id != game.opp_id
       redirect_to stages_path
     else
-      redirect_to new_game_path, :notice => "Game could not be created"
+      redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"
     end
   end
 

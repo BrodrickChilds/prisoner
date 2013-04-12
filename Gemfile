@@ -2,9 +2,11 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
+gem 'koala', :git => 'https://github.com/arsduo/koala.git'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'jquery-tokeninput-rails'
 gem 'heroku'
 gem 'certified'
 gem 'seed_dumper'
