@@ -34,11 +34,29 @@ class User < ActiveRecord::Base
   end
 
   def self.opponent_name(opp, user)
-    if opp = user
+    if opp == user
       return "AI"
     else
       return opp.name
     end
+  end
+
+  def update_score(game, user_index)
+    if game.user_strat == false
+      if game.opp_strat == false
+        stage_index = 0
+      else
+        stage_index = 1
+      end
+    else
+      if game.user_strat == false
+        stage_index = 2
+      else
+        stage_index = 3
+      end
+    end
+    user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
+    self.update_attributes(:score => self.score+user_update_score)
   end
 
 private
@@ -47,15 +65,4 @@ private
     self.latest_stage ||= 1
   end
 
-  # def update_score
-  #       if user_strat == false:
-  #     if opp_strat == false:
-  #       total_strat = 0
-  #     else
-  #       total_strat = 1
-  #   else:
-  #     if opp_strat == false:
-  #       total_strat = 2
-  #     else:
-  #       total_strat = 3
 end
