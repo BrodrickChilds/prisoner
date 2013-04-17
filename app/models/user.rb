@@ -16,9 +16,55 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_fb_friends(graph)
+    friends = graph.get_connections("me", "friends")
+    return friends
+  end
+
+  def facebook_friends? (friend_id, graph)
+    fb_friends = get_fb_friends(graph)
+    friend_ids = fb_friends.map{|friend| friend["id"]}
+    return friend_fbids.include?(User.find(friend_id).fbid)
+  end
+
+  def friend_ids(graph)
+    fb_friends = get_fb_friends(graph)
+    friend_fbids = fb_friends.map{|friend| friend["id"]}
+    friends = User.where(:uid => friend_fbids)
+    friend_ids = friends.map{|friend| friend.id}
+    return friend_ids
+  end
+
+  def self.opponent_name(opp, user)
+    if opp == user
+      return "AI"
+    else
+      return opp.name
+    end
+  end
+
+  def update_score(game, user_index)
+    if game.user_strat == false
+      if game.opp_strat == false
+        stage_index = 0
+      else
+        stage_index = 1
+      end
+    else
+      if game.user_strat == false
+        stage_index = 2
+      else
+        stage_index = 3
+      end
+    end
+    user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
+    self.update_attributes(:score => self.score+user_update_score)
+  end
+
 private
   def default_values
     self.score ||= 0
     self.latest_stage ||= 1
   end
+
 end

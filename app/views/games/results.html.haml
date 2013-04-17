@@ -32,7 +32,10 @@
         betrayed
       -else
         didn't betray
-      =@opp
+      =@user
+
+=@game.opponent.score
+=@game.user.score
 
 .actions
   =link_to "Back to " + @game.stage.name, @game.stage

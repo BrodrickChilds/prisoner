@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
-  attr_accessible :user_id, :complete, :opp_id, :opp_strat, :seen_bit, :stage, :user_strat, :stage_id
+  attr_accessible :user_id, :user_tokens, :complete, :opp_id, :opp_strat, :seen_bit, :stage, :user_strat, :stage_id
+  attr_reader :user_tokens
   belongs_to :user, :class_name => "User"
   belongs_to :opponent, :class_name => "User", :foreign_key => "opp_id"
   belongs_to :stage
@@ -9,7 +10,11 @@ class Game < ActiveRecord::Base
     game.save
   end
 
-  def resolve(strat)
+  def user_tokens=(ids)
+    friend_ids = ids.split(",")
+  end
+
+  def resolve(strat)    
     return update_attributes(:user_strat => strat, :complete => true)
   end
   
@@ -17,3 +22,6 @@ class Game < ActiveRecord::Base
     update_attributes(:seen_bit => true)
   end
 end
+
+
+

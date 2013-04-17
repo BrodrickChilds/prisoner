@@ -2,23 +2,23 @@
   Game
   =@game.id
 
-.middle_panel
-  .invite
-    .searchbox
-    .live_people
-      Opponent:
-      =@opponent
+.middle_panel.row-fluid
+  .span12
+    .invite.span3
+      .searchbox
+      .live_people
+        Opponent:
+        =@opponent
+    .game_description.span4
+      =image_tag("Kitchen.jpg")
+    .waiting_games.span3
+      .info
+        Opponent:
+        =@opponent
+      .respond
+        =link_to "Betray", game_respond_path(@game, :strategy => true), :method => :put
+        =link_to "Don't Betray", game_respond_path(@game, :strategy => false), :method => :put
+.controls.row-fluid
+  =link_to "Back to games", games_path
 
-  .game_description
-    =image_tag("Kitchen.jpg")
-
-  .waiting_games
-    .info
-      Opponent:
-      =@opponent
-    .respond
-      =link_to "Betray", game_respond_path(@game, :strategy => true), :method => :put
-      =link_to "Don't Betray", game_respond_path(@game, :strategy => false), :method => :put
-.controls
-  =link_to "Back to " + @game.stage.name, @game.stage
 

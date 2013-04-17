@@ -20,8 +20,11 @@
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-button
 //= require twitter/bootstrap/bootstrap-collapse
+//= require twitter/bootstrap/bootstrap-carousel
 $(document).ready(function(){
 	$(function() {
+		$('#carousel').carousel();
+
 		$( '.btn').button();
 
             });
