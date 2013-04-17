@@ -11,6 +11,14 @@ end
 
 module Prisoner
   class Application < Rails::Application
+    PAYOFF = {
+  1 => [[0,0], [0,0], [0,0],[0,0]],
+  2 => [[3,3], [-2,5], [5,-2],[0,0]],
+  3 => [[6,6], [-2,8], [8,-2],[0,0]],
+  4 => [[6,6], [0,12], [12,0],[-12,-12]],
+  5 => [[12,12], [-8,20], [20,-8],[0,0]],
+  6 => [[12,12], [-4,16], [16,-4],[0,0]]
+}
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
     friend_ids = ids.split(",")
   end
 
-  def resolve(strat)
+  def resolve(strat)    
     return update_attributes(:user_strat => strat, :complete => true)
   end
   
@@ -22,3 +22,6 @@ class Game < ActiveRecord::Base
     update_attributes(:seen_bit => true)
   end
 end
+
+
+

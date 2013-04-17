@@ -46,4 +46,16 @@ private
     self.score ||= 0
     self.latest_stage ||= 1
   end
+
+  # def update_score
+  #       if user_strat == false:
+  #     if opp_strat == false:
+  #       total_strat = 0
+  #     else
+  #       total_strat = 1
+  #   else:
+  #     if opp_strat == false:
+  #       total_strat = 2
+  #     else:
+  #       total_strat = 3
 end
