@@ -10,7 +10,7 @@
 .games
   -@games.each do |game|
     .game
-      =link_to "#{User.opponent_name(game.user, current_user)} challenged you!", game
+      =link_to "#{User.opponent_name(game.opponent, current_user)} challenged you!", game
 
 
 = link_to 'Back', stages_path
