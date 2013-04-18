@@ -1,6 +1,4 @@
 class StagesController < ApplicationController
-  # GET /stages
-  # GET /stages.json
   def index
     @stages = Stage.all
     @games_and_stages = []
