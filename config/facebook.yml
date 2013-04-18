@@ -1,10 +1,10 @@
 development:
   app_id: 214770255333914
-  secret: 397a1a088b973d5fe6f7b1446c98471b
+  secret: 368b7c4413bf3e2432443b80b1a914f0 
 
 test:
   app_id: 214770255333914
-  secret: 397a1a088b973d5fe6f7b1446c98471b
+  secret: 368b7c4413bf3e2432443b80b1a914f0 
 
 production:
   app_id: 212052785607548 
