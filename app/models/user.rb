@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      user.score = 0
+      user.latest_stage = 1
       user.save!
     end
   end
@@ -35,11 +37,29 @@ class User < ActiveRecord::Base
   end
 
   def self.opponent_name(opp, user)
-    if opp = user
+    if opp == user
       return "AI"
     else
       return opp.name
     end
+  end
+
+  def update_score(game, user_index)
+    if game.user_strat == false
+      if game.opp_strat == false
+        stage_index = 0
+      else
+        stage_index = 1
+      end
+    else
+      if game.user_strat == false
+        stage_index = 2
+      else
+        stage_index = 3
+      end
+    end
+    user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
+    self.update_attributes(:score => self.score+user_update_score)
   end
 
 private
@@ -48,6 +68,7 @@ private
     self.latest_stage ||= 1
   end
 
+<<<<<<< HEAD
   def update_score(game, user_index)
 
     if game.user_strat == false:
@@ -65,4 +86,6 @@ private
     end
     update_attributes(:score => score + payoff[game.stage.level][total_strat][user_index]
   
+=======
+>>>>>>> 45199ba7f80b8d56548bed7346895022ff85434f
 end

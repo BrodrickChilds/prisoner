@@ -22,7 +22,9 @@ class GamesController < ApplicationController
   def respond
     @game = Game.find(params[:game_id])
     if @game.resolve(params[:strategy])
-      redirect_to game_results_path
+      if @game.user.update_score(@game, 0) && @game.opponent.update_score(@game, 1)
+        redirect_to game_results_path
+      end
     else
       redirect_to game_path(@game)
     end
