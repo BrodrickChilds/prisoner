@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score
   has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
+  payoff = prisoner::Application::PAYOFF
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
@@ -47,15 +48,21 @@ private
     self.latest_stage ||= 1
   end
 
-  # def update_score
-  #       if user_strat == false:
-  #     if opp_strat == false:
-  #       total_strat = 0
-  #     else
-  #       total_strat = 1
-  #   else:
-  #     if opp_strat == false:
-  #       total_strat = 2
-  #     else:
-  #       total_strat = 3
+  def update_score(game, user_index)
+
+    if game.user_strat == false:
+      if game.opp_strat == false:
+        total_strat = 0
+      else:
+        total_strat = 1
+      end
+    else:
+      if game.opp_strat == false:
+        total_strat = 2
+      else:
+        total_strat = 3
+      end
+    end
+    update_attributes(:score => score + payoff[game.stage.level][total_strat][user_index]
+  
 end
