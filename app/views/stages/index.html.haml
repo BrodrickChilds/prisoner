@@ -6,7 +6,7 @@
 
 #myCarousel.carousel.slide
   .carousel-inner
-    -if @stage_ids.contains(4)
+    -if @stage_ids.include?(4)
       .item.active
         =image_tag("Yard.jpg",:title=>"Prison Yard")
         .container
@@ -14,7 +14,7 @@
             %h1 Prison Yard
             %p.lead Its early in the morning and the officers are calling everyone for morning work. 
             %a.btn.btn-large.btn-primary{:href => "#"} Go to work
-    -if @stage_ids.contains(6)
+    -if @stage_ids.include?(6)
       .item
         =image_tag("interrogation.jpg",:title=>"Prison Yard")
         .container
@@ -22,7 +22,7 @@
             %h1 Interrogation Room
             %p.lead You have been called to the interrogation room, you get a chance to show you are not guilty. Maybe you get to arrange for another court hearing.
             %a.btn.btn-large.btn-primary{:href => "#"} Go to the interrogation room
-    -if @stage_ids.contains(1)
+    -if @stage_ids.include?(1)
       .item
         =image_tag("dinning.jpg",:title=>"Training")
         .container
@@ -30,7 +30,7 @@
             %h1 Dinning Hall
             %p.lead After a long day of work, dinner is served.
             %a.btn.btn-large.btn-primary{:href => "#"} Go to the dinning hall
-    -if @stage_ids.contains(3)
+    -if @stage_ids.include?(3)
       .item
         =image_tag("prison_cell1.jpg",:title=>"Dirty cell room")
         .container
@@ -38,7 +38,7 @@
             %h1 Cell rooms
             %p.lead You are assigned to clean you neighbors cell room.
             %a.btn.btn-large.btn-primary{:href => "#"} Go to the cell
-    -if @stage_ids.contains(2)
+    -if @stage_ids.include?(2)
       .item
         =image_tag("Kitchen.jpg",:title=>"Cooking")
         .container
@@ -46,7 +46,7 @@
             %h1 Kitchen
             %p.lead Once in a while, you need to help the prison cook to serve food to prisoners.
             %a.btn.btn-large.btn-primary{:href => "#"} Go to the kitchen
-    -if @stage_ids.contains(5)
+    -if @stage_ids.include?(5)
       .item
         =image_tag("Kitchen.jpg",:title=>"Sickness")
         .container
