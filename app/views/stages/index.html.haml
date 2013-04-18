@@ -7,13 +7,13 @@
 #myCarousel.carousel.slide
   .carousel-inner
     -if @stage_ids.contains(4)
-        .item.active
-          =image_tag("Yard.jpg",:title=>"Prison Yard")
-          .container
-            .carousel-caption
-              %h1 Prison Yard
-              %p.lead Its early in the morning and the officers are calling everyone for morning work. 
-              %a.btn.btn-large.btn-primary{:href => "#"} Go to work
+      .item.active
+        =image_tag("Yard.jpg",:title=>"Prison Yard")
+        .container
+          .carousel-caption
+            %h1 Prison Yard
+            %p.lead Its early in the morning and the officers are calling everyone for morning work. 
+            %a.btn.btn-large.btn-primary{:href => "#"} Go to work
     -if @stage_ids.contains(6)
       .item
         =image_tag("interrogation.jpg",:title=>"Prison Yard")
