@@ -1,6 +1,7 @@
 class StagesController < ApplicationController
   def index
     @stages = Stage.all
+    @stage_ids = @stages.map { |stage| stage.id }
     @games_and_stages = []
     @stages.each do |stage|
       games = stage.games.where(:user_id => current_user.id, :complete => false)
