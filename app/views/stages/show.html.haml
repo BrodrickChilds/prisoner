@@ -1,23 +1,28 @@
 %p#notice= notice
 
-%p
-  %b Level:
-  = @stage.level
-%p
-  %b Name:
-  = @stage.name
 
-.games
-  -@games.each do |game|
-    .game
-      =link_to "#{User.opponent_name(game.opponent, current_user)} challenged you!", game
-
+.row-fluid
+  .invite.span3
+    =link_to "Create game", new_game_path(:level => @stage.level)
+    Challenge a friend:
+    =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
+  .game_description.span4
+    %p
+      %b Level:
+      = @stage.level
+    %p
+      %b Name:
+      = @stage.name
+    =image_tag("Kitchen.jpg")
+  .waiting_games.span3
+    .games
+      -@games.each do |game|
+        -opponent = User.opponent_name(game.opponent, current_user)
+        .game
+          =render :partial => "games/game", :locals => {:game => game, :opponent => opponent}
 
 = link_to 'Back', stages_path
-
 %br
-
-=link_to "Create game", new_game_path(:level => @stage.level)
 -# %h1
   -# Game
   -# =@game.id
