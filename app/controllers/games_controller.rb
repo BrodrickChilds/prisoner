@@ -23,7 +23,12 @@ class GamesController < ApplicationController
     @game = Game.find(params[:game_id])
     if @game.resolve(params[:strategy])
       if @game.user.update_score(@game, 0) && @game.opponent.update_score(@game, 1)
-        redirect_to game_results_path
+        respond_to do |format|
+          format.html { redirect_to game_results_path }
+          format.js { render :partial => "games/response", :locals => {:game => @game, :user => @game.user.name, :opp => @game.opponent.name}, :layout => false }
+        end
+      else
+        redirect_to game_path(@game)
       end
     else
       redirect_to game_path(@game)
@@ -53,10 +58,13 @@ class GamesController < ApplicationController
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
-    if game.save && game.user_id != game.opp_id
-      redirect_to stages_path
-    else
-      redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"
+    respond_to do |format|
+      if game.save && game.user_id != game.opp_id
+        format.html { redirect_to stages_path, notice: 'Game was successfully created.' }
+        format.js { render :partial => "games/response", :locals => {:game => game}, :layout => false }
+      else
+        redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"
+      end
     end
   end
 

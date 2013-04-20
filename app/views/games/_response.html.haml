@@ -1,0 +1,35 @@
+%h1 Game results
+.location
+  Game in the #{game.stage.name}
+-if current_user.id == game.user_id
+  .current-user-is-user
+    .opponent
+      =opp
+      -if game.opp_strat
+        betrayed
+      -else 
+        didn't betray
+      you.
+    .user
+      Meanwhile, you
+      -if game.user_strat 
+        betrayed
+      -else
+        didn't betray
+      =opp
+-elsif current_user.id == game.opp_id
+  .current-user-is-opponent
+    .opponent
+      =user
+      -if game.user_strat 
+        betrayed
+      -else 
+        didn't betray
+      you.
+    .user
+      Meanwhile, you
+      -if game.opp_strat 
+        betrayed
+      -else
+        didn't betray
+      =user

@@ -19,12 +19,12 @@ class StagesController < ApplicationController
   # GET /stages/1
   # GET /stages/1.json
   def show
+    @game = Game.new
     @stage = Stage.find(params[:id])
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     if current_user && @stage.level == 1 && @games.size == 0
       Game.generate_tutorial(current_user, @stage.id)
     end
-
 
     respond_to do |format|
       format.html # show.html.erb
