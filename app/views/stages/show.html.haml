@@ -2,11 +2,11 @@
 
 
 .row-fluid
-  .invite.span3
+  .invite.span4
     =link_to "Create game", new_game_path(:level => @stage.level)
     Challenge a friend:
     =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
-  .game_description.span4
+  .game_description.span5
     %p
       %b Level:
       = @stage.level
@@ -18,7 +18,7 @@
     .games
       -@games.each do |game|
         -opponent = User.opponent_name(game.opponent, current_user)
-        .game
+        .game{:id => game.id}
           =render :partial => "games/game", :locals => {:game => game, :opponent => opponent}
 
 = link_to 'Back', stages_path
