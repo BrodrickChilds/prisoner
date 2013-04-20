@@ -1,1 +1,0 @@
-(function(){$(function(){return $("#game_user_tokens").tokenInput("/users.json",{crossDomain:!1,tokenLimit:1})})}).call(this);
