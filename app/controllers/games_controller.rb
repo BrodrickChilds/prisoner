@@ -1,6 +1,4 @@
 class GamesController < ApplicationController
-  def create
-  end
   
   def index
     @games = Game.where(:user_id => current_user.id, :complete => false)
@@ -25,7 +23,7 @@ class GamesController < ApplicationController
       if @game.user.update_score(@game, 0) && @game.opponent.update_score(@game, 1)
         respond_to do |format|
           format.html { redirect_to game_results_path }
-          format.js { render :partial => "games/response", :locals => {:game => @game, :user => @game.user.name, :opp => @game.opponent.name}, :layout => false }
+          format.js { render :partial => "games/response", :locals => {:game => @game, :user => User.opponent_name(@game.user, current_user), :opp => User.opponent_name(@game.opponent, current_user)}, :layout => false }
         end
       else
         redirect_to game_path(@game)
@@ -60,7 +58,7 @@ class GamesController < ApplicationController
     game.opp_id = current_user.id
     respond_to do |format|
       if game.save && game.user_id != game.opp_id
-        format.html { redirect_to stages_path, notice: 'Game was successfully created.' }
+        format.html { redirect_to game.stage, notice: 'Game was successfully created.' }
         format.js { render :partial => "games/response", :locals => {:game => game}, :layout => false }
       else
         redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"

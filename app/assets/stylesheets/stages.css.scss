@@ -230,7 +230,7 @@
       }
 
       .marketing .span4 + .span4 {
-        margin-top: 40px;
+        margin-top: 40px; 
       }
 
       .featurette-heading {
@@ -242,3 +242,45 @@
       }
 
     }
+ .middle_panel{padding-left:0px;min-width:100%px;align:center;}
+ .invite{float:right;margin-right:10px;margin-top:20px;margin-right:10px;}
+ .game-description{margin-top:20px; margin-left:10px;font-size:24px;}
+ .description{min-width:50%;min-height:50%; font-size:16px;}
+.awaiting-games{float:right;}
+// .respond{padding-left:7px;width:200px;float:left;}
+// .info{width:100px;float:left;}
+// .controls{width:200px;margin:0 auto;}
+
+.my-container{      
+
+      background: rgba(0, 0, 0, 0.75);
+      padding: 0 20px;
+      margin-top: 20px;
+      margin-left:20px;
+      margin-bottom:20px;
+      margin: 0;
+      line-height: 1.25;
+      color: orange;
+      font-family:courier;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);}
+      
+      
+ .profile{
+      width:50%;
+      top:25%;
+      left:22%;
+      position:fixed;
+   
+ }
+ .user-stats{float:right;min-height:100px;font-size:20px;width:60%;}
+ .user-image{float:left;margin-bottom:10px;width:30%;}
+ .limit{max-width:100%;}
+ // .score{float:left;}
+ .stat{line-height: 2.25; }
+ .backpic{background:url('Kitchen.jpg') no-repeat center center fixed;        
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        overflow: hidden; /* Vertically center images part 2: clear their floats. */
+}
+ 

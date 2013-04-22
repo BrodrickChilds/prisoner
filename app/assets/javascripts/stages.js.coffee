@@ -5,10 +5,6 @@
 $ ->
   $("a.game_respond").click game_response_handler
 
-game_submit_handler = (event) ->
-  return false
-  $("form.create-game").submit game_submit_handler
-
 game_response_handler = (event) ->
   event.preventDefault()
   game = $(this).parents(".game")
@@ -23,5 +19,7 @@ game_response_handler = (event) ->
       game_response.append(data.responseText)
       game.find(".game-internal").hide()
       game.append(game_response)
+      hide_game = -> game_response.fadeOut('slow')
+      setTimeout hide_game, 5000
 
   return false
