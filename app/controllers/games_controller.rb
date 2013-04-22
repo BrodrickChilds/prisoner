@@ -51,15 +51,14 @@ class GamesController < ApplicationController
 
   def create
     game = Game.create(params[:game])
-    game.user_id = params[:game][:user_tokens]
-    print params[:game]
+    game.user_id ||= params[:uid]
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
     respond_to do |format|
       if game.save && game.user_id != game.opp_id
         format.html { redirect_to game.stage, notice: 'Game was successfully created.' }
-        format.js { render :partial => "games/response", :locals => {:game => game}, :layout => false }
+        format.js { render :partial => 'games/blank'}
       else
         redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"
       end

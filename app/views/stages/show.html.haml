@@ -5,7 +5,7 @@
   .game-description.span8
     .my-container.description-container
       .description
-        %p
+        .level{:id => @stage.level}
           %b Level:
           = @stage.level
         %p
