@@ -1,11 +1,4 @@
 =form_for game, :html => {:class => "create-game"} do |f|
-  .form-dropdown
-    =f.label :Strategy
-    =f.select :opp_strat, [["Betray", true], ["Don't betray", false]]
   .form-text
     =f.label :user_tokens, "Opponent"
     =f.text_field :user_tokens
-  .form-hidden
-    =f.hidden_field :stage_id, :value => stage.id
-  .form-submit
-    =f.submit

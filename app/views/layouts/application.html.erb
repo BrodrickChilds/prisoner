@@ -19,7 +19,7 @@
             <%= link_to "Sign out", signout_path, id: "sign_out" %>
           </li>
           <li>
-            <%= link_to current_user.name, current_user %>
+            <%= link_to current_user.name, current_user, class: "current_user", id: current_user.id %>
           </li>
         <% else %>
           <li>
