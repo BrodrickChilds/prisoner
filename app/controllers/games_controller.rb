@@ -1,6 +1,4 @@
 class GamesController < ApplicationController
-  def create
-  end
   
   def index
     @games = Game.where(:user_id => current_user.id, :complete => false)
@@ -60,7 +58,7 @@ class GamesController < ApplicationController
     game.opp_id = current_user.id
     respond_to do |format|
       if game.save && game.user_id != game.opp_id
-        format.html { redirect_to stages_path, notice: 'Game was successfully created.' }
+        format.html { redirect_to game.stage, notice: 'Game was successfully created.' }
         format.js { render :partial => "games/response", :locals => {:game => game}, :layout => false }
       else
         redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"

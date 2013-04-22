@@ -242,11 +242,12 @@
       }
 
     }
-.row_fluid{margin-left:0px;}
-.middle_panel{margin:0 0;padding-left:0px;min-width:1000px;min-height:500px;align:center;}
-.invite{max-width:250px;float:left;}
-.game_description{max-width:450px;margin:0px; padding-left:0px; float:left;}
-.waiting_games{max-width:200px;float:right;}
-.respond{padding-left:7px;width:200px;float:left;}
-.info{width:100px;float:left;}
-.controls{width:200px;margin:0 auto;}
+// .row_fluid{margin-left:0px;}
+ .middle_panel{ margin:0 0;padding-left:0px;min-width:100%px;min-height:500px;align:center;}
+// .invite{max-width:250px;float:left;}
+ .game_description{background:url('Kitchen.jpg');min-height:100px;}
+ .description{min-width:50%;min-height:50%;}
+// .waiting_games{max-width:200px;float:right;}
+// .respond{padding-left:7px;width:200px;float:left;}
+// .info{width:100px;float:left;}
+// .controls{width:200px;margin:0 auto;}

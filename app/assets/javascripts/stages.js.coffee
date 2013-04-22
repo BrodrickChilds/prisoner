@@ -5,10 +5,6 @@
 $ ->
   $("a.game_respond").click game_response_handler
 
-game_submit_handler = (event) ->
-  return false
-  $("form.create-game").submit game_submit_handler
-
 game_response_handler = (event) ->
   event.preventDefault()
   game = $(this).parents(".game")

@@ -1,6 +1,6 @@
 Prisoner::Application.routes.draw do
   match "users", to: 'users#index', as: 'users'
-  match "user/show/:id", to: "users#show"
+  match "user/:id", to: "users#show"
 
   resources :stages
 
