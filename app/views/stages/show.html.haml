@@ -1,7 +1,7 @@
 %p#notice= notice
 
 
-.row-fluid
+.middle_panel.row-fluid.span12
   .invite.span4
     =link_to "Create game", new_game_path(:level => @stage.level)
     Challenge a friend:
@@ -15,6 +15,7 @@
       = @stage.name
     =image_tag("Kitchen.jpg")
   .waiting_games.span3
+    Awaiting games go here
     .games
       -@games.each do |game|
         -opponent = User.opponent_name(game.opponent, current_user)
