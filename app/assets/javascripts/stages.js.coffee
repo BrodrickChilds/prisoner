@@ -19,5 +19,7 @@ game_response_handler = (event) ->
       game_response.append(data.responseText)
       game.find(".game-internal").hide()
       game.append(game_response)
+      hide_game = -> game_response.fadeOut('slow')
+      setTimeout hide_game, 5000
 
   return false

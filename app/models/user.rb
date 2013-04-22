@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
       end
     end
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
-    self.update_attributes(:score => self.score+user_update_score)
+    update_attributes(:score => self.score+user_update_score)
   end
 
 private
