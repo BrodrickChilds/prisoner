@@ -247,8 +247,8 @@
 
     }
  .middle_panel{padding-left:0px;min-width:100%px;align:center;}
- .invite{float:right;margin-right:10px;margin-top:20px;margin-right:10px;}
- .game-description{margin-top:20px; margin-left:10px;font-size:24px;}
+ .invite{float:right;min-width:100%;}
+ .game-description{margin-top:20px; margin-left:10px;font-size:24px;margin-right:20px;}
  .description{min-width:50%;min-height:50%; font-size:16px;}
 // .awaiting-games{float:right;}
 // .respond{padding-left:7px;width:200px;float:left;}
@@ -262,7 +262,7 @@
       margin-top: 20px;
       margin-left:20px;
       margin-bottom:20px;
-      margin: 0;
+      margin-right:20px;
       line-height: 1.25;
       color: orange;
       font-family:courier;
