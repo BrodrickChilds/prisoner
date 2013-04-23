@@ -1,10 +1,8 @@
 .game-internal
-  %h3
-    Game against #{opponent}
 
-  .respond
-    =image_tag(picture)
-    =link_to "Betray", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link"
-    =link_to "Don't Betray", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link"
+  =image_tag(picture)
+  = opponent
+  =link_to "Betray", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link"
+  =link_to "Don't Betray", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link"
 
 

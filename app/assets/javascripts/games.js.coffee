@@ -28,6 +28,7 @@ create_game = (event) ->
 betrayal_handler = (friend, intent, friend_id) ->
   betray = false
   level = $('.level').attr('id')
+  alert(level)
   if intent == 'y'
     betray = true
   $.ajax
