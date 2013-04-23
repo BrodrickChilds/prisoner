@@ -28,7 +28,6 @@ create_game = (event) ->
 betrayal_handler = (friend, intent, friend_id) ->
   betray = false
   level = $('.level').attr('id')
-  alert(level)
   if intent == 'y'
     betray = true
   $.ajax
@@ -43,7 +42,5 @@ betrayal_handler = (friend, intent, friend_id) ->
       friend.parent().append(success)
       hide_game = -> 
         success.fadeOut('slow')
-        if level == "1"
-          location.reload()
       setTimeout hide_game, 5000
   return false
