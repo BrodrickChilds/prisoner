@@ -9,23 +9,23 @@ create_game = (event) ->
   token_values = tokens.tokenInput("get")
   tokens.tokenInput("clear")
   friend_id = token_values[0]['id']
+  friend_parent = $("<div></div>")
   friend = $("<div></div>")
   friend_name = $("<h3>"+token_values[0]['name']+"</h3>")
-  betray_link = $("<a href=#>Betray</a>")
-  no_betray_link = $("<a href=#>Don't Betray</a>")
+  betray_link = $("<a href=# class='light-link'>Betray</a>")
+  no_betray_link = $("<a href=# class='light-link'>Don't Betray</a>")
   friend.append(friend_name)
   friend.append(betray_link)
   friend.append("<span> </span>")
   friend.append(no_betray_link)
-  friend.addClass("to_delete")
+  friend_parent.append(friend)
   betray_link.bind 'click', (event) =>
-    betrayal_handler('y', friend_id)
+    betrayal_handler(friend, 'y', friend_id)
   no_betray_link.bind 'click', (event) =>
-    betrayal_handler('n', friend_id)
-  $('.games').prepend(friend)
+    betrayal_handler(friend, 'n', friend_id)
+  $('.games').prepend(friend_parent)
   
-betrayal_handler = (intent, friend_id) ->
-  link = $(this)
+betrayal_handler = (friend, intent, friend_id) ->
   betray = false
   level = $('.level').attr('id')
   if intent == 'y'
@@ -36,7 +36,10 @@ betrayal_handler = (intent, friend_id) ->
     dataType: "script"
     type: "POST"
     complete: (data) ->
-      game = link.parents(".to_delete")
-      hide_game = -> game.fadeOut('slow')
+      friend.hide()
+      success = $("<div> </div>")
+      success.append("<h4> Request sent! </h4>")
+      friend.parent().append(success)
+      hide_game = -> success.fadeOut('slow')
       setTimeout hide_game, 5000
   return false
