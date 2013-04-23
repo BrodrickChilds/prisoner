@@ -1,7 +1,7 @@
 .profile.my-container.span12
   %h2 Prisoner information sheet 493020-20D
   .user-image.span2
-    =image_tag('officer.jpg')
+    =image_tag(@graph.get_picture(@user.uid, :type => "large"))
   .user-stats.span6
     .stat
       Name:

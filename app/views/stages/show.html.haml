@@ -33,7 +33,9 @@
     .games
       -@games.each do |game|
         -opponent = User.opponent_name(game.opponent, current_user)
+        -if @stage.level > 1
+          -@picture = @graph.get_picture(game.opponent.uid)
         .game{:id => game.id}
-          =render :partial => "games/game", :locals => {:game => game, :opponent => opponent}
+          =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent => opponent}
 
 = link_to 'Back', stages_path

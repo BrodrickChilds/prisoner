@@ -40,6 +40,9 @@ betrayal_handler = (friend, intent, friend_id) ->
       success = $("<div> </div>")
       success.append("<h4> Request sent! </h4>")
       friend.parent().append(success)
-      hide_game = -> success.fadeOut('slow')
+      hide_game = -> 
+        success.fadeOut('slow')
+        if level == "1"
+          location.reload()
       setTimeout hide_game, 5000
   return false
