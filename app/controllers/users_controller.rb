@@ -6,9 +6,13 @@ class UsersController < ApplicationController
     else
       @friends = User.where("name like ?", "%#{params[:q]}%").where(:id => friend_ids)
     end
+    @friends = @friends.map(&:attributes)
+    @friends.each do |friend|
+      friend[:url] = graph.get_picture(friend["uid"].to_i)
+    end
     respond_to do |format|
       format.html
-      format.json { render :json => @friends.map(&:attributes) }
+      format.json { render :json => @friends }
     end
   end
 
