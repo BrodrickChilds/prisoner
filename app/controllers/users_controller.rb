@@ -20,4 +20,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @graph = graph
   end
+
+  def random
+    @user = User.random_user(current_user)
+    @picture = graph.get_picture(@user.uid)
+    respond_to do |format|
+      format.json { render :json => {:user => @user, :url => @picture}  }
+      format.html
+    end
+  end
 end

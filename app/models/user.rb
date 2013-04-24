@@ -16,6 +16,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.random_user(current_user)
+    total = User.count
+    offset = rand(total)
+    user = User.first(:offset => offset)
+    while user == current_user
+      offset = rand(total)
+      user = User.first(:offset => offset)
+    end
+    return user  
+  end
+
   def get_fb_friends(graph)
     friends = graph.get_connections("me", "friends")
     return friends
