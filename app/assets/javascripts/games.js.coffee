@@ -38,7 +38,7 @@ betrayal_handler = (friend, intent, friend_id) ->
     complete: (data) ->
       friend.hide()
       success = $("<div> </div>")
-      success.append("<h4> Request sent! </h4>")
+      success.append(data.responseText)
       friend.parent().append(success)
       hide_game = -> 
         success.fadeOut('slow')
