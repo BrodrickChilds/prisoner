@@ -2,7 +2,12 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-  $('#game_user_tokens').tokenInput('/users.json', { crossDomain: false, onAdd: create_game });
+  $('#game_user_tokens').tokenInput('/users.json', { 
+    crossDomain: false, 
+    onAdd: create_game, 
+    resultsFormatter: (item) ->
+      return "<li>" + "<img src='" + item.url + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>"
+  });
 
 create_game = (event) ->
   tokens = $('#game_user_tokens')

@@ -61,6 +61,25 @@ class User < ActiveRecord::Base
     update_attributes(:score => self.score+user_update_score)
   end
 
+  def cooperates()
+    games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
+    #games.where("user_strat == ?, complete == ?, level > ?", false, true, 1)
+    
+  end  
+
+  def betrays()
+    games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count
+  end
+
+  def cooperated_against()
+    games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
+  end
+
+  def betrayed_against()
+    games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count
+  end
+
+
 private
   def default_values
     self.score ||= 0
