@@ -8,7 +8,7 @@ $ ->
 game_response_handler = (event) ->
   event.preventDefault()
   game = $(this).parents(".game")
-  console.log(game)
+  level = $('.level').attr('id') 
   $.ajax
     url: $(this).attr('href')
     data: null
@@ -19,7 +19,10 @@ game_response_handler = (event) ->
       game_response.append(data.responseText)
       game.find(".game-internal").hide()
       game.append(game_response)
-      hide_game = -> game_response.fadeOut('slow')
+      hide_game = -> 
+        game_response.fadeOut('slow')
+        if level == "1"
+          location.reload()
       setTimeout hide_game, 5000
 
   return false
