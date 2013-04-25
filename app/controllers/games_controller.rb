@@ -55,12 +55,17 @@ class GamesController < ApplicationController
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
+    exists = Game.where(:opp_id => game.opp_id, :user_id => game.user_id, :stage_id => game.stage_id).length > 0
     respond_to do |format|
-      if game.save && game.user_id != game.opp_id
-        format.html { redirect_to game.stage, notice: 'Game was successfully created.' }
-        format.js { render :partial => 'games/blank'}
+      if game.user_id != game.opp_id && game.stage.level > 1 && !exists
+        if game.save
+          format.html { redirect_to game.stage, notice: 'Game was successfully created.' }
+          format.js { render :partial => 'games/blank', :locals => {:success => true} }
+        end
       else
-        redirect_to new_game_path, :notice => "Game could not be created, make sure you're not challenging yourself!"
+        game.delete
+        format.html { redirect_to new_game_path, :notice => "Game could not be created.  You can't challenge the same user more than once before he responds!" }
+        format.js { render :partial => 'games/blank', :locals => {:success => false} }
       end
     end
   end
