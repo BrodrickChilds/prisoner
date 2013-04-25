@@ -1,4 +1,9 @@
 -if success
   %h4 Request sent!
 -else
-  %h6 Request failed.  Make sure not to send requests to the same opponent on the same stage before they've responded.
+  -if message == "duplicate"
+    %h6 Request failed.  Make sure not to send requests to the same opponent on the same stage before they've responded.
+  -elsif message == "level"
+    %h6 You can't challenge people on the practice stage!
+  -else
+    %h6 Request failed.  Make sure you're sending the request appropriately and try again.
