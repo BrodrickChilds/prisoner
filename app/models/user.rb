@@ -75,7 +75,6 @@ class User < ActiveRecord::Base
   def cooperates()
     games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
     #games.where("user_strat == ?, complete == ?, level > ?", false, true, 1)
-    
   end  
 
   def betrays()
