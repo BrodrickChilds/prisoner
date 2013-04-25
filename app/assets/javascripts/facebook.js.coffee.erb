@@ -16,3 +16,12 @@ window.fbAsyncInit = ->
         window.location = '/auth/facebook'
       else
         window.location = '/'
+
+  user_name = $("a.current_user")[0]["innerText"]
+
+  $("#invite_fb_friends").click (e) ->
+    event.preventDefault()
+    FB.ui({
+      method:'apprequests',
+      message: user_name + " would like to invite you to try out Prisoner's Dilemma!"
+    })
