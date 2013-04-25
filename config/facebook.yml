@@ -4,12 +4,11 @@ development:
 
 test:
   app_id: 214770255333914
-  secret: 368b7c4413bf3e2432443b80b1a914f0 
-
-fake-production:
-  app_id: 214770255333914
-  secret: 368b7c4413bf3e2432443b80b1a914f0 
+  secret: 368b7c4413bf3e2432443b80b1a914f0
   
-production:
+fake-production:
   app_id: 212052785607548 
   secret: 781d7b6dd8c8af66d5507313cf350d76
+production:
+  app_id: 214770255333914
+  secret: 368b7c4413bf3e2432443b80b1a914f0 
