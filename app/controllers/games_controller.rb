@@ -65,7 +65,13 @@ class GamesController < ApplicationController
       else
         game.delete
         format.html { redirect_to new_game_path, :notice => "Game could not be created.  You can't challenge the same user more than once before he responds!" }
-        format.js { render :partial => 'games/blank', :locals => {:success => false} }
+        if game.stage.level == 1
+          format.js { render :partial => 'games/blank', :locals => {:success => false, :message => "level"} }
+        elsif exists
+          format.js { render :partial => 'games/blank', :locals => {:success => false, :message => "duplicate"} }
+        else
+          format.js { render :partial => 'games/blank', :locals => {:success => false, :message => "failure"} }
+        end
       end
     end
   end
