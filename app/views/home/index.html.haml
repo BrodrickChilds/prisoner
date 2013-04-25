@@ -1,15 +1,9 @@
--if current_user
-  / .summary
-  .image
-    %img{:alt => "", :src => "assets/jail.png"}/
-
-
-
-  =button_to "Enter", stages_path, :method => :get, :class => "btn"
--else
-  %h2 Hello?  You there, sign in.
-
-
-
-
-
+.row-fluid
+  .span12
+    .span2
+    .span8.my-container
+      Prisoner, welcome to Shoreside Maximum Security Prison.  I don't have all day, so I'm gonna say this once.  You and your accomplices will be here for a while, so get used to the place.  Every day you'll be allowed some activities.  Be smart about them and you might see some time off that sentence.  Be stupid, and you'll be seeing my face for longer.
+      %br
+      %br
+      Login to get started.
+    .span2  
