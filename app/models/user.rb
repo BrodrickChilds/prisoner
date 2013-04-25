@@ -34,8 +34,8 @@ class User < ActiveRecord::Base
 
   def facebook_friends? (friend_id, graph)
     fb_friends = get_fb_friends(graph)
-    friend_ids = fb_friends.map{|friend| friend["id"]}
-    return friend_fbids.include?(User.find(friend_id).fbid)
+    friend_fbids = fb_friends.map{|friend| friend["id"]}
+    return friend_fbids.include?(User.find(friend_id).uid)
   end
 
   def friend_ids(graph)
@@ -73,9 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def cooperates()
-    games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
-    #games.where("user_strat == ?, complete == ?, level > ?", false, true, 1)
-    
+    games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count   
   end  
 
   def betrays()
@@ -88,6 +86,19 @@ class User < ActiveRecord::Base
 
   def betrayed_against()
     games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count
+  end
+
+  def last_five(level)
+    recent_games = games.where(:complete => true, :stage_id => level).order("updated_at DESC").limit(5)
+    recent_game_ids = recent_games.map{ |game| game.id }
+    percent_betray = 0
+    if recent_games.count>=5
+      betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
+      percent_betray = betray_num / 5.0 * 100
+    else
+      betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
+      percent_betray = betray_num / recent_games.count * 100
+    end
   end
 
 
