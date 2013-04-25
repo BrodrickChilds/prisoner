@@ -1,33 +1,33 @@
 .row-fluid
-  .profile.my-container.span12
+  .my-container.span12.profile
     %h2 Prisoner information sheet 493020-20D
-    .user-image.span2
-      =image_tag(@graph.get_picture(@user.uid, :type => "large"))
-    .user-stats.span6
-      .stat
-        Name:
-        =@user.name
-      .stat
-        Cooperated: 
-        =@user.cooperates
-      .stat
-        Betrayed: 
-        =@user.betrays
-      .stat
-        Cooperated against: 
-        =@user.cooperated_against
-      .stat
-        Was betrayed: 
-        =@user.betrayed_against
-      .stat
-        Time spent in prison: 150 weeks
-      .stat
-        Time left from the sentence: 
-        =@user.score
-        weeks
-      .stat
-        Progress towards freedom
-        .progress.progress-striped.active.limit
-          .bar.bar-warning{:style => "width:#{100*(520-@user.score)/520}%"}
-
-
+    .span12
+      .span10.prisoner-info
+        .user-image.span3
+          =image_tag(@graph.get_picture(@user.uid, :type => "large"))
+        .user-stats.span8
+          .stat
+            Name:
+            =@user.name
+          .stat
+            Cooperated: 
+            =@user.cooperates
+          .stat
+            Betrayed: 
+            =@user.betrays
+          .stat
+            Cooperated against: 
+            =@user.cooperated_against
+          .stat
+            Was betrayed: 
+            =@user.betrayed_against
+          .stat
+            Time spent in prison: 150 weeks
+          .stat
+            Time left from the sentence: 
+            =@user.score
+            weeks
+          .stat
+            Progress towards freedom
+            .progress.progress-striped.active.limit
+              .bar.bar-warning{:style => "width:#{100*(520-@user.score)/520}%"}
