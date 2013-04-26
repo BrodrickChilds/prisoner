@@ -73,19 +73,19 @@ class User < ActiveRecord::Base
   end
 
   def cooperates()
-    games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count   
+    games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count   
   end  
 
   def betrays()
-    games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count
+    games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count
   end
 
   def cooperated_against()
-    games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
+    games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
   end
 
   def betrayed_against()
-    games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count
+    games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count + opp_games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?",1).count
   end
 
   def last_five(level)
@@ -94,10 +94,10 @@ class User < ActiveRecord::Base
     percent_betray = 0
     if recent_games.count>=5
       betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
-      percent_betray = betray_num / 5.0 * 100
+      percent_betray = betray_num / [5.0, 1].max * 100
     else
       betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
-      percent_betray = betray_num / recent_games.count * 100
+      percent_betray = betray_num / [recent_games.count, 1].max * 100
     end
   end
 
