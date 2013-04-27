@@ -34,15 +34,16 @@ friend_handler = (event) ->
 create_game = (name, id, url) ->
   friend_parent = $("<div></div>")
   friend = $("<div></div>")
-  friend_name = $("<h4> </h4>")
+  friend_name = $("<span> </span>")
   if url == undefined
-    friend_name.append(name)
+    friend_name.append(" " + name)
   else
     friend_name.append("<img src=" + url + ">")
-    friend_name.append(name)
+    friend_name.append(" " + name)
   betray_link = $("<a href=# class='light-link'>Betray</a>")
   no_betray_link = $("<a href=# class='light-link'>Don't Betray</a>")
   friend.append(friend_name)
+  friend.append("</br>")
   friend.append(betray_link)
   friend.append("<span> </span>")
   friend.append(no_betray_link)
