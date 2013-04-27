@@ -270,7 +270,7 @@
     }
  .middle_panel{padding-left:0px;min-width:100%px;align:center;}
  .invite{float:right;min-width:100%;}
- .game-description{margin-top:20px; margin-left:10px;font-size:24px;margin-right:20px;}
+ .game-description{margin-top:20px; margin-left:20px; margin-bottom:20px;padding-bottom:20px; font-size:24px;margin-right:20px;}
  .description{min-width:50%;min-height:50%; font-size:16px;}
 // .awaiting-games{float:right;}
 // .respond{padding-left:7px;width:200px;float:left;}
@@ -318,10 +318,13 @@
  // .score{float:left;}
  .stat{line-height: 2.25; }
  
- .backpic{background:url('Kitchen.jpg') no-repeat center center fixed;        
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        overflow: hidden; /* Vertically center images part 2: clear their floats. */
+ .backpic{
+   //background:url('Kitchen.jpg') no-repeat center center fixed;        
+         overflow:hidden;
+         background-size: cover;
+         display:block;
+         min-height:600px;
+          /* Vertically center images part 2: clear their floats. */
+ 
 }
  
