@@ -89,14 +89,14 @@ class User < ActiveRecord::Base
   end
 
   def last_five(level)
-    recent_games = games.where(:complete => true, :stage_id => level).order("updated_at DESC").limit(5)
+    recent_games = Game.where("user_id = ? OR opp_id = ?", id, id).where(:complete => true, :stage_id => level).order("updated_at DESC").limit(5)
     recent_game_ids = recent_games.map{ |game| game.id }
     percent_betray = 0
     if recent_games.count>=5
-      betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
+      betray_num = Game.where("user_id = ? OR opp_id = ?", id, id).where(:id => recent_game_ids, :user_strat => true).count
       percent_betray = betray_num / [5.0, 1].max * 100
     else
-      betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
+      betray_num = Game.where("user_id = ? OR opp_id = ?", id, id).where(:id => recent_game_ids, :user_strat => true).count
       percent_betray = betray_num / [recent_games.count, 1].max * 100
     end
   end
