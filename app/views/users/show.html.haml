@@ -22,12 +22,13 @@
             Was betrayed: 
             =@user.betrayed_against
           .stat
-            Time spent in prison: 150 weeks
+            Time spent in prison: 
+            =@user.timespent
           .stat
             Time left from the sentence: 
-            =@user.score
+            =@user.score - @user.timespent
             weeks
           .stat
             Progress towards freedom
             .progress.progress-striped.active.limit
-              .bar.bar-warning{:style => "width:#{100*(520-@user.score)/520}%"}
+              .bar.bar-warning{:style => "width:#{100*(@user.score)/520}%"}

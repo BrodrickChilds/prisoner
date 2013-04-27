@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #before_save :default_values
-  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score
+  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity
   has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
   def self.from_omniauth(auth)
@@ -104,6 +104,11 @@ class User < ActiveRecord::Base
   def same_parity?(opponent)
     return id%2 == opponent.id%2
   end
+
+  def timespent()
+    games.where(:complete => true).where("stage_id IS NOT ?", 1).count
+  end
+
 
 
 private
