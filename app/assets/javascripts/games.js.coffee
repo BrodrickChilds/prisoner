@@ -23,7 +23,7 @@ random_handler = (event) ->
     type: "GET"
     complete: (data) ->
       info = JSON.parse(data.responseText)
-      create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.user.score)
+      create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.time_left)
 
   return false
 
@@ -39,9 +39,9 @@ friend_handler = (event) ->
     type: "get"
     complete: (data) ->
       info = JSON.parse(data.responseText)
-      create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.user.score)
+      create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.time_left)
 
-create_game = (name, id, url, show_info, last_five, score) ->
+create_game = (name, id, url, show_info, last_five, time_left) ->
   friend_parent = $("<div></div>")
   friend = $("<div></div>")
   friend_name = $("<div class='name'> </div>")
@@ -57,7 +57,7 @@ create_game = (name, id, url, show_info, last_five, score) ->
   links.append("<span> </span>")
   links.append(no_betray_link)
   information = $("<div class='recent-game-info'> </div>")
-  information.append("Time left in prison: " + score + " weeks </br> Betrayed opponents in " + last_five + "% of their last five games")
+  information.append("Time left in prison: " + time_left + " weeks </br> Betrayed opponents in " + last_five + "% of their last five games on this level")
   friend.append(friend_name)
   if show_info
     friend.append(information)

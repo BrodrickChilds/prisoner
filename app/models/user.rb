@@ -72,19 +72,19 @@ class User < ActiveRecord::Base
     update_attributes(:score => self.score+user_update_score)
   end
 
-  def cooperates()
+  def cooperates
     games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count   
   end  
 
-  def betrays()
+  def betrays
     games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count
   end
 
-  def cooperated_against()
+  def cooperated_against
     games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
   end
 
-  def betrayed_against()
+  def betrayed_against
     games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count + opp_games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?",1).count
   end
 
@@ -105,12 +105,12 @@ class User < ActiveRecord::Base
     return id%2 == opponent.id%2
   end
 
-  def timespent()
-    games.where(:complete => true).where("stage_id IS NOT ?", 1).count
+  def timespent
+    games.where(:complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:complete => true).where("stage_id IS NOT ?", 1).count
   end
 
-  def time_left()
-    score-timespent()
+  def time_left
+    score-timespent
   end
 
 
