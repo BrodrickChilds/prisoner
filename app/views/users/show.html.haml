@@ -26,9 +26,9 @@
             =@user.timespent
           .stat
             Time left from the sentence: 
-            =@user.score - @user.timespent
+            =@user.time_left()
             weeks
           .stat
             Progress towards freedom
             .progress.progress-striped.active.limit
-              .bar.bar-warning{:style => "width:#{100*(@user.score)/520}%"}
+              .bar.bar-warning{:style => "width:#{100*(520-(@user.score-@user.timespent))/520}%"}

@@ -109,6 +109,11 @@ class User < ActiveRecord::Base
     games.where(:complete => true).where("stage_id IS NOT ?", 1).count
   end
 
+  def time_left()
+    score-timespent()
+  end
+
+
 
 
 private
