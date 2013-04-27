@@ -6,6 +6,9 @@ $ ->
     crossDomain: false, 
     onAdd: friend_handler, 
     hintText: "Type in a friend's name",
+    tokenFormatter: (item) ->
+      return "<li>" + "<img src='" + item.url + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>"
+    ,
     resultsFormatter: (item) ->
       return "<li>" + "<img src='" + item.url + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>"
   });
@@ -20,29 +23,37 @@ random_handler = (event) ->
     type: "GET"
     complete: (data) ->
       info = JSON.parse(data.responseText)
-      create_game(info.user.name, info.user.id, info.url)
+      create_game(info.user.name, info.user.id, info.url, info.last_five, info.user.score)
 
   return false
 
 friend_handler = (event) ->
   tokens = $('#game_user_tokens')
   token_values = tokens.tokenInput("get")
+  console.log(token_values)
   tokens.tokenInput("clear")
-  create_game(token_values[0]['name'], token_values[0]['id'])
-  
+  $.ajax
+    url: "/users/"+token_values[0]['id']
+    data: null
+    dataType: "json"
+    type: "get"
+    complete: (data) ->
+      info = JSON.parse(data.responseText)
+      create_game(info.user.name, info.user.id, info.url, info.last_five, info.user.score)
 
 create_game = (name, id, url) ->
   friend_parent = $("<div></div>")
   friend = $("<div></div>")
-  friend_name = $("<h4> </h4>")
+  friend_name = $("<span> </span>")
   if url == undefined
-    friend_name.append(name)
+    friend_name.append(" " + name)
   else
     friend_name.append("<img src=" + url + ">")
-    friend_name.append(name)
+    friend_name.append(" " + name)
   betray_link = $("<a href=# class='light-link'>Betray</a>")
   no_betray_link = $("<a href=# class='light-link'>Don't Betray</a>")
   friend.append(friend_name)
+  friend.append("</br>")
   friend.append(betray_link)
   friend.append("<span> </span>")
   friend.append(no_betray_link)

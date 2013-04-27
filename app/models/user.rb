@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      user.score = 0
+      user.score = 520
       user.latest_stage = 1
       user.save!
     end
@@ -99,6 +99,10 @@ class User < ActiveRecord::Base
       betray_num = games.where(:id => recent_game_ids, :user_strat => true).count
       percent_betray = betray_num / [recent_games.count, 1].max * 100
     end
+  end
+
+  def same_parity?(opponent)
+    return id%2 == opponent.id%2
   end
 
 
