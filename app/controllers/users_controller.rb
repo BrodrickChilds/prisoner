@@ -22,8 +22,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @picture = graph.get_picture(@user.uid)
     @graph = graph
+    show_info = current_user.same_parity?(@user)
     respond_to do |format|
-      format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level])}  }
+      if show_info
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :show_info => true}  }
+      else
+        format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+      end
       format.html
     end
   end
@@ -31,8 +36,13 @@ class UsersController < ApplicationController
   def random
     @user = User.random_user(current_user)
     @picture = graph.get_picture(@user.uid)
+    show_info = current_user.same_parity?(@user)
     respond_to do |format|
-      format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level])}  }
+      if show_info
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :show_info => true}  }
+      else
+        format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+      end
       format.html
     end
   end

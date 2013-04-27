@@ -23,7 +23,7 @@ random_handler = (event) ->
     type: "GET"
     complete: (data) ->
       info = JSON.parse(data.responseText)
-      create_game(info.user.name, info.user.id, info.url, info.last_five, info.user.score)
+      create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.user.score)
 
   return false
 
@@ -39,24 +39,29 @@ friend_handler = (event) ->
     type: "get"
     complete: (data) ->
       info = JSON.parse(data.responseText)
-      create_game(info.user.name, info.user.id, info.url, info.last_five, info.user.score)
+      create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.user.score)
 
-create_game = (name, id, url) ->
+create_game = (name, id, url, show_info, last_five, score) ->
   friend_parent = $("<div></div>")
   friend = $("<div></div>")
-  friend_name = $("<span> </span>")
+  friend_name = $("<div class='name'> </div>")
   if url == undefined
     friend_name.append(" " + name)
   else
     friend_name.append("<img src=" + url + ">")
     friend_name.append(" " + name)
+  links = $("<div class='actions'></div>")
   betray_link = $("<a href=# class='light-link'>Betray</a>")
   no_betray_link = $("<a href=# class='light-link'>Don't Betray</a>")
+  links.append(betray_link)
+  links.append("<span> </span>")
+  links.append(no_betray_link)
+  information = $("<div class='recent-game-info'> </div>")
+  information.append("Time left in prison: " + score + " weeks </br> Betrayed opponents in " + last_five + "% of their last five games")
   friend.append(friend_name)
-  friend.append("</br>")
-  friend.append(betray_link)
-  friend.append("<span> </span>")
-  friend.append(no_betray_link)
+  if show_info
+    friend.append(information)
+  friend.append(links)
   friend_parent.append(friend)
   betray_link.bind 'click', (event) =>
     betrayal_handler(friend, 'y', id)
