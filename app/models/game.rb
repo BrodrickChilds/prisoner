@@ -15,11 +15,7 @@ class Game < ActiveRecord::Base
   end
 
   def resolve(strat, user, opponent, graph)    
-    if user_id%2 == opp_id%2
-      update_attributes(:user_strat => strat, :complete => true, :user_time_left => user.score, :opp_time_left => opponent.score, :user_history => user.last_five(stage_id), :opp_history => opponent.last_five(stage_id), :fb_friend => user.facebook_friends?(opponent.id, graph))
-    else
-      update_attributes(:user_strat => strat, :complete => true)
-    end
+    update_attributes(:user_strat => strat, :complete => true, :user_time_left => user.score, :opp_time_left => opponent.score, :user_history => user.last_five(stage_id), :opp_history => opponent.last_five(stage_id), :fb_friend => user.facebook_friends?(opponent.id, graph), :same_parity => user.same_parity?(opponent))
   end
   
   def seen

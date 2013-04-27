@@ -101,6 +101,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def same_parity?(opponent)
+    return id%2 == opponent.id%2
+  end
+
 
 private
   def default_values

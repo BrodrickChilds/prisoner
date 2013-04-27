@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425205548) do
+ActiveRecord::Schema.define(:version => 20130427194527) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20130425205548) do
     t.integer  "user_history"
     t.integer  "opp_history"
     t.boolean  "fb_friend"
+    t.boolean  "same_parity"
   end
 
   add_index "games", ["opp_id"], :name => "index_games_on_opp_id"

@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     @friends = @friends.map(&:attributes)
     @friends.each do |friend|
       friend[:url] = graph.get_picture(friend["uid"].to_i)
+      friend_obj = User.find(friend["id"])
+      friend[:last_five] = friend_obj.last_five(session[:level])
     end
     respond_to do |format|
       format.html
@@ -18,14 +20,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @picture = graph.get_picture(@user.uid)
     @graph = graph
+    respond_to do |format|
+      format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level])}  }
+      format.html
+    end
   end
 
   def random
     @user = User.random_user(current_user)
     @picture = graph.get_picture(@user.uid)
     respond_to do |format|
-      format.json { render :json => {:user => @user, :url => @picture}  }
+      format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level])}  }
       format.html
     end
   end

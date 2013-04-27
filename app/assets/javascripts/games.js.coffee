@@ -6,6 +6,9 @@ $ ->
     crossDomain: false, 
     onAdd: friend_handler, 
     hintText: "Type in a friend's name",
+    tokenFormatter: (item) ->
+      return "<li>" + "<img src='" + item.url + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>"
+    ,
     resultsFormatter: (item) ->
       return "<li>" + "<img src='" + item.url + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='name'>" + item.name + "</div></div></li>"
   });
@@ -20,16 +23,23 @@ random_handler = (event) ->
     type: "GET"
     complete: (data) ->
       info = JSON.parse(data.responseText)
-      create_game(info.user.name, info.user.id, info.url)
+      create_game(info.user.name, info.user.id, info.url, info.last_five, info.user.score)
 
   return false
 
 friend_handler = (event) ->
   tokens = $('#game_user_tokens')
   token_values = tokens.tokenInput("get")
+  console.log(token_values)
   tokens.tokenInput("clear")
-  create_game(token_values[0]['name'], token_values[0]['id'])
-  
+  $.ajax
+    url: "/users/"+token_values[0]['id']
+    data: null
+    dataType: "json"
+    type: "get"
+    complete: (data) ->
+      info = JSON.parse(data.responseText)
+      create_game(info.user.name, info.user.id, info.url, info.last_five, info.user.score)
 
 create_game = (name, id, url) ->
   friend_parent = $("<div></div>")
