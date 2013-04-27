@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422202023) do
+ActiveRecord::Schema.define(:version => 20130425205548) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -20,9 +20,14 @@ ActiveRecord::Schema.define(:version => 20130422202023) do
     t.boolean  "opp_strat"
     t.boolean  "complete"
     t.boolean  "seen_bit"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "stage_id"
+    t.integer  "user_time_left"
+    t.integer  "opp_time_left"
+    t.integer  "user_history"
+    t.integer  "opp_history"
+    t.boolean  "fb_friend"
   end
 
   add_index "games", ["opp_id"], :name => "index_games_on_opp_id"
