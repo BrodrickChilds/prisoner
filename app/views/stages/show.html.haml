@@ -18,15 +18,15 @@
               %b Description:
               = @stage.description
 
-      .results.my-container
-        %h4 
-          Results of your challenges:
-        -if @result_games.size > 0
+      -if @result_games.size > 0
+        .results.my-container
+          %h4 
+            Results of your challenges:
           -@result_games.each do |result|
             .result
               =render :partial => "games/result", :locals => {:game => result, :stage => @stage, :opponent_name => User.opponent_name(result.user, current_user)}
-        %br
-          %h5 You now have #{current_user.time_left} weeks left.
+          %br
+            %h5 You now have #{current_user.time_left} weeks left.
 
     .span6
       .my-container.invite
