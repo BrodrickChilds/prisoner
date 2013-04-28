@@ -113,8 +113,9 @@ class User < ActiveRecord::Base
     score-timespent
   end
 
-
-
+  def result_games(level)
+    opp_games.where(:complete => true, :stage_id => level, :seen_bit => false)
+  end
 
 private
   def default_values
