@@ -1,8 +1,15 @@
 .game-internal
 
-  =image_tag(picture)
-  = opponent
+  = image_tag(picture)
+  = opponent_name
   %br
+  -if current_user.same_parity?(game.opponent) and game.stage.level > 1
+    .recent-game-info
+      Time left in prison:
+      =game.opponent.time_left
+      Weeks
+      %br
+      Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their last five games on this level
   .respond
     =link_to"A", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link btn btn-success"
     =link_to "B", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link btn btn-danger"

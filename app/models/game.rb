@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  attr_accessible :user_id, :user_tokens, :complete, :opp_id, :opp_strat, :seen_bit, :stage, :user_strat, :stage_id, :user_time_left, :opp_time_left, :user_history, :opp_history, :fb_friend
+  attr_accessible :user_id, :user_tokens, :complete, :opp_id, :opp_strat, :seen_bit, :stage, :user_strat, :stage_id, :user_time_left, :opp_time_left, :user_history, :opp_history, :fb_friend, :same_parity
   attr_reader :user_tokens
   belongs_to :user, :class_name => "User"
   belongs_to :opponent, :class_name => "User", :foreign_key => "opp_id"

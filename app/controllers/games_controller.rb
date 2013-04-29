@@ -1,18 +1,5 @@
 class GamesController < ApplicationController
   
-  def index
-    @games = Game.where(:user_id => current_user.id, :complete => false)
-    if current_user && current_user.latest_stage == 1 && @games.size == 0
-      Game.generate_tutorial(current_user)
-    end
-  end
-
-  def show
-    @game = Game.find(params[:id])
-    @opp_user = User.find(@game.opp_id)
-    @opponent = User.opponent_name(@opp_user, current_user)
-  end
-
   def waiting_responses
     @games = current_user.opp_games.where(:seen_bit => false, :complete => true)
   end
@@ -55,7 +42,7 @@ class GamesController < ApplicationController
     game.complete = false
     game.seen_bit = false
     game.opp_id = current_user.id
-    exists = Game.where(:opp_id => game.opp_id, :user_id => game.user_id, :stage_id => game.stage_id).length > 0
+    exists = Game.where(:opp_id => game.opp_id, :user_id => game.user_id, :stage_id => game.stage_id, :complete => false).length > 0
     respond_to do |format|
       if game.user_id != game.opp_id && game.stage.level > 1 && !exists
         if game.save
