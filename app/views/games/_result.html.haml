@@ -1,16 +1,15 @@
 %h5 Game against #{opponent_name}
-.current-user-is-opponent
-  .opponent
-    =opponent_name
-    -if game.user_strat 
-      betrayed
-    -else 
-      didn't betray
-    you.
-  .user
-    Meanwhile, you
-    -if game.opp_strat 
-      betrayed
-    -else
-      didn't betray
-    =opponent_name
+.opponent
+  =opponent_name
+  -if game.user_strat 
+    betrayed
+  -else 
+    didn't betray
+  you.
+.user
+  Meanwhile, you
+  -if game.opp_strat 
+    betrayed
+  -else
+    didn't betray
+  =opponent_name

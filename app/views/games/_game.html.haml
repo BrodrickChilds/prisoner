@@ -9,7 +9,7 @@
       =game.opponent.time_left
       Weeks
       %br
-      Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their last five games on this level
+      Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their recent games on this level
   .respond
     =link_to"A", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link btn btn-success"
     =link_to "B", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link btn btn-danger"

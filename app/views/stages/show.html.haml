@@ -18,15 +18,15 @@
               %b Description:
               = @stage.description
 
-      -if @result_games.size > 0
-        .results.my-container
-          %h4 
-            Results of your challenges:
-          -@result_games.each do |result|
-            .result
-              =render :partial => "games/result", :locals => {:game => result, :stage => @stage, :opponent_name => User.opponent_name(result.user, current_user)}
-          %br
-            %h5 You now have #{current_user.time_left} weeks left.
+          -if @result_games.size > 0
+            .results.my-container
+              %b 
+                Results of your challenges:
+              -@result_games.each do |result|
+                .result
+                  =render :partial => "games/result", :locals => {:game => result, :stage => @stage, :opponent_name => User.opponent_name(result.user, current_user)}
+              %br
+                %b You now have #{current_user.time_left} weeks left.
 
     .span6
       .my-container.invite
@@ -35,8 +35,9 @@
             Find an inmate
             =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
         .pending-games
-          %p Inmates waiting for your response
-        .games.span6
+          -if @games.size > 0
+            %p Inmates waiting for your response
+        .games
           -@games.each do |game|
             -opponent_name = User.opponent_name(game.opponent, current_user)
             -if @stage.level > 1
