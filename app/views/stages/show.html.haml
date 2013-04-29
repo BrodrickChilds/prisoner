@@ -29,7 +29,7 @@
             =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
         .pending-games
           %p Inmates waiting for your response
-        .games
+        .games.span6
           -@games.each do |game|
             -opponent = User.opponent_name(game.opponent, current_user)
             -if @stage.level > 1
