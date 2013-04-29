@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
   end
 
   def timespent
-    games.where(:complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:complete => true).where("stage_id IS NOT ?", 1).count
+    games.where(:complete => true).count#where("stage_id IS NOT ?", 1).count + opp_games.where(:complete => true).where("stage_id IS NOT ?", 1).count
   end
 
   def time_left
