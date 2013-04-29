@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     show_info = current_user.same_parity?(@user)
     respond_to do |format|
       if show_info
-        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :show_info => true}  }
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
       else
         format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
       end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     show_info = current_user.same_parity?(@user)
     respond_to do |format|
       if show_info
-        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :show_info => true}  }
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
       else
         format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
       end
