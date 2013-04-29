@@ -326,4 +326,11 @@
           /* Vertically center images part 2: clear their floats. */
  
 }
+
+.respond{
+  float:right;
+}
+.respond:hover{
+  background:rgba(0, 0, 0, 0.75);
+}
  
