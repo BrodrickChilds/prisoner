@@ -30,7 +30,6 @@ random_handler = (event) ->
 friend_handler = (event) ->
   tokens = $('#game_user_tokens')
   token_values = tokens.tokenInput("get")
-  console.log(token_values)
   tokens.tokenInput("clear")
   $.ajax
     url: "/users/"+token_values[0]['id']

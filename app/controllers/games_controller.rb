@@ -31,11 +31,6 @@ class GamesController < ApplicationController
     end
   end
 
-  def new
-    @stage = params[:level]
-    @game = Game.new
-  end
-
   def create
     game = Game.create(params[:game])
     game.user_id ||= params[:uid]
@@ -63,8 +58,4 @@ class GamesController < ApplicationController
     end
   end
 
-  def destroy
-    game = Game.find(params[:id])
-    game.delete
-  end
 end
