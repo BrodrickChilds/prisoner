@@ -24,6 +24,10 @@ class StagesController < ApplicationController
     @graph = graph
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     @picture = 'Inmate.jpg'
+    @result_games = current_user.result_games(@stage.level)
+    @result_games.each do |game|
+      game.seen
+    end
     session[:level] = @stage.level
     if current_user && @stage.level == 1 && @games.size == 0
       Game.generate_tutorial(current_user, @stage.id)

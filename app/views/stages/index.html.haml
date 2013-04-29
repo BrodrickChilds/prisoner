@@ -13,7 +13,7 @@
           .carousel-caption
             %h1 Dining Hall
             %p.lead After a long day of work, dinner is served.
-            =link_to "Go to dining", @games_and_stages[0][:stage],:class => "btn btn-large"
+            =link_to "Go to dining (#{@games_and_stages[0][:games]})", @games_and_stages[0][:stage],:class => "btn btn-large"
     -if @stage_ids.include?(2)
       .item
         =image_tag("Kitchen.jpg",:title=>"Cooking")
@@ -21,7 +21,7 @@
           .carousel-caption
             %h1 Kitchen
             %p.lead Once in a while, you need to help the prison cook to serve food to prisoners.
-            =link_to "Go to the kitchen", @games_and_stages[1][:stage],:class => "btn btn-large"
+            =link_to "Go to the kitchen (#{@games_and_stages[1][:games]})", @games_and_stages[1][:stage],:class => "btn btn-large"
     -if @stage_ids.include?(3)
       .item
         =image_tag("bunkbeds.jpg",:title=>"Dirty cell room")
@@ -29,7 +29,7 @@
           .carousel-caption
             %h1 Cell rooms
             %p.lead You are assigned to clean you neighbors cell room.
-            =link_to "Go to cell", @games_and_stages[2][:stage],:class => "btn btn-large"
+            =link_to "Go to cell (#{@games_and_stages[2][:games]})", @games_and_stages[2][:stage],:class => "btn btn-large"
     -if @stage_ids.include?(4)
       .item
         =image_tag("Yard.jpg",:title=>"Prison Yard")
@@ -37,7 +37,7 @@
           .carousel-caption
             %h1 Prison Yard
             %p.lead Its early in the morning and the officers are calling everyone for morning work. 
-            =link_to "Go to work", @games_and_stages[3][:stage],:class => "btn btn-large"
+            =link_to "Go to work (#{@games_and_stages[3][:games]})", @games_and_stages[3][:stage],:class => "btn btn-large"
     -if @stage_ids.include?(5)
       .item
         =image_tag("hospital.jpg",:title=>"Sickness")
@@ -45,7 +45,7 @@
           .carousel-caption
             %h1 Hospital
             %p.lead To get off prison duty, you can try to act sick and get admitted to the hospital. You can injure yourself with a piece of glass, but you are going to pretend it was an accident.
-            =link_to "Go to the hospital", @games_and_stages[4][:stage],:class => "btn btn-large"
+            =link_to "Go to the hospital (#{@games_and_stages[4][:games]})", @games_and_stages[4][:stage],:class => "btn btn-large"
     -if @stage_ids.include?(6)
       .item
         =image_tag("guard.jpg",:title=>"office")
@@ -53,6 +53,6 @@
           .carousel-caption
             %h1 Interrogation Room
             %p.lead You have been called to the interrogation room, you get a chance to show you are not guilty. Maybe you get to arrange for another court hearing.
-            =link_to "Go to interrogation room", @games_and_stages[5][:stage],:class => "btn btn-large"
+            =link_to "Go to interrogation room (#{@games_and_stages[5][:games]})", @games_and_stages[5][:stage],:class => "btn btn-large"
   %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} ‹
   %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} ›      

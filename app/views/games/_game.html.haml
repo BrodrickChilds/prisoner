@@ -3,7 +3,7 @@
   = image_tag(picture)
   = opponent_name
   %br
-  -if current_user.same_parity?(game.opponent)
+  -if current_user.same_parity?(game.opponent) and game.stage.level > 1
     .recent-game-info
       Time left in prison:
       =game.opponent.time_left

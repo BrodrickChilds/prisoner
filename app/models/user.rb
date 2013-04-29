@@ -73,19 +73,19 @@ class User < ActiveRecord::Base
   end
 
   def cooperates
-    games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count   
+    games.where(:user_strat => false, :complete => true).where("stage_id != ?", 1).count + opp_games.where(:opp_strat => false, :complete => true).where("stage_id != ?", 1).count   
   end  
 
   def betrays
-    games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?", 1).count
+    games.where(:user_strat => true, :complete => true).where("stage_id != ?", 1).count + opp_games.where(:opp_strat => true, :complete => true).where("stage_id != ?", 1).count
   end
 
   def cooperated_against
-    games.where(:opp_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id IS NOT ?", 1).count
+    games.where(:opp_strat => false, :complete => true).where("stage_id != ?", 1).count + opp_games.where(:user_strat => false, :complete => true).where("stage_id != ?", 1).count
   end
 
   def betrayed_against
-    games.where(:opp_strat => true, :complete => true).where("stage_id IS NOT ?",1).count + opp_games.where(:user_strat => true, :complete => true).where("stage_id IS NOT ?",1).count
+    games.where(:opp_strat => true, :complete => true).where("stage_id != ?",1).count + opp_games.where(:user_strat => true, :complete => true).where("stage_id != ?",1).count
   end
 
   def last_five(level)
@@ -106,15 +106,16 @@ class User < ActiveRecord::Base
   end
 
   def timespent
-    games.where(:complete => true).where("stage_id IS NOT ?", 1).count + opp_games.where(:complete => true).where("stage_id IS NOT ?", 1).count
+    games.where(:complete => true).where("stage_id != ?", 1).count + opp_games.where(:complete => true).where("stage_id != ?", 1).count
   end
 
   def time_left
     score-timespent
   end
 
-
-
+  def result_games(level)
+    opp_games.where(:complete => true, :stage_id => level, :seen_bit => false)
+  end
 
 private
   def default_values
