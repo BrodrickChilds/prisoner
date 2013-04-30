@@ -42,7 +42,7 @@
             -opponent_name = User.opponent_name(game.opponent, current_user)
             -if @stage.level > 1
               -@picture = @graph.get_picture(game.opponent.uid)
-            .game-unit.game{:id => game.id}
+            .game{:id => game.id}
               =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
 
 = link_to 'Back', stages_path
