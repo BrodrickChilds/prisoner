@@ -1,10 +1,10 @@
 %h1 Game results
 .location
   Game in the #{game.stage.name}
--if current_user.id == game.user_id
+-if user.id == game.user_id
   .current-user-is-user
     .opponent
-      =opp
+      =opp_name
       -if game.opp_strat
         betrayed
       -else 
@@ -16,11 +16,11 @@
         betrayed
       -else
         didn't betray
-      =opp
--elsif current_user.id == game.opp_id
+      =opp_name
+-elsif user.id == game.opp_id
   .current-user-is-opponent
     .opponent
-      =user
+      =user_name
       -if game.user_strat 
         betrayed
       -else 
@@ -32,7 +32,7 @@
         betrayed
       -else
         didn't betray
-      =user
+      =user_name
 
 .score
-  You now have #{current_user.time_left} weeks left.
+  You now have #{user.time_left} weeks left.
