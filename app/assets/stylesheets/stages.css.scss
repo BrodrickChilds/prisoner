@@ -290,7 +290,11 @@
       line-height: 1.25;
       color: orange;
       font-family:courier;
-      text-shadow: 0 1px 1px rgba(0,0,0,.4);}
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      max-height:600px;
+      overflow:scroll;
+      
+      }
       
       
  .profile{
@@ -327,10 +331,18 @@
  
 }
 
+.game-unit{
+  border-color:orange;
+  border-style:solid;
+}
 .respond{
-  float:right;
+  float:left;
 }
-.respond:hover{
-  background:rgba(0, 0, 0, 0.75);
+.results{
+  font-size:16 px;
 }
+
+.cbutton {
+    max-width: 25% !important;
+} 
  

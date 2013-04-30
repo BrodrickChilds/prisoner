@@ -11,5 +11,5 @@
       %br
       Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their recent games on this level
   .respond
-    =link_to"A", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link btn btn-success"
-    =link_to "B", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link btn btn-danger"
+    =link_to"A", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link btn btn-success cbutton"
+    =link_to "B", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link btn btn-danger cbutton"
