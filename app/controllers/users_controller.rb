@@ -33,6 +33,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def leaders
+    @leaders = User.where("id > ?", 0).order('score')
+  end
+
   def random
     @user = User.random_user(current_user)
     @picture = graph.get_picture(@user.uid)
