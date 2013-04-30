@@ -13,10 +13,10 @@ class GamesController < ApplicationController
           format.js { render :partial => "games/response", :locals => {:game => @game, :user => User.opponent_name(@game.user, current_user), :opp => User.opponent_name(@game.opponent, current_user)}, :layout => false }
         end
       else
-        redirect_to game_path(@game)
+        redirect_to @game.stage
       end
     else
-      redirect_to game_path(@game)
+      redirect_to @game.stage
     end
   end
 

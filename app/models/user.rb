@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
     end
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
     update_attributes(:score => self.score+user_update_score)
+    save
   end
 
   def cooperates
