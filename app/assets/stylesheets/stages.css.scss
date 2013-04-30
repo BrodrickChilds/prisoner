@@ -292,7 +292,7 @@
       font-family:courier;
       text-shadow: 0 1px 1px rgba(0,0,0,.4);
       max-height:600px;
-      overflow:scroll;
+      padding-bottom:30px;
       
       }
       
@@ -334,6 +334,7 @@
 .game-unit{
   border-color:orange;
   border-style:solid;
+  padding-bottom:30px;
 }
 .respond{
   float:left;
