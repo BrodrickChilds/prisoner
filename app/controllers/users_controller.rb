@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def leaders
-    @leaders = User.where("id > ?", 0).order('score')
+    @leaders = User.all.sort_by { |u| u.time_left }
   end
 
   def random

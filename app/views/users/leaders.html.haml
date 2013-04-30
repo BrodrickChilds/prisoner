@@ -1,4 +1,7 @@
 -@leaders.each do |leader|
   .user
-    =leader.name
-    =leader.score
+    .name
+      =leader.name
+    .remaining
+      ="#{leader.time_left} weeks left"
+  %br
