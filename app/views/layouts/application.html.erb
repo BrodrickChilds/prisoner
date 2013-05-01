@@ -22,6 +22,9 @@
             <%= link_to current_user.name, current_user, class: "current_user", id: current_user.id %>
           </li>
           <li>
+            <%= link_to "Leaderboards", leaderboard_path %>
+          </li>
+          <li>
             <%= link_to image_tag("small-facebook-icon.png") + " Invite your Facebook Friends","#",:id=>"invite_fb_friends"%>
           </li>
         <% else %>

@@ -1,6 +1,7 @@
 Prisoner::Application.routes.draw do
   resources :users
   match 'random_user', to: 'users#random', as: 'random_user'
+  match 'leaderboard', to: 'users#leaders', as: 'leaderboard'
 
   match 'home', to: 'home#index', as: 'home'
 

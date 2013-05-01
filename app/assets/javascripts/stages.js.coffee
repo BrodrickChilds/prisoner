@@ -26,3 +26,4 @@ game_response_handler = (event) ->
       setTimeout hide_game, 5000
 
   return false
+
