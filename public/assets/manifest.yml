@@ -103,8 +103,8 @@ stages.js: stages-8808264c12ee20581563bebed6663d4e.js
 stages/index.js: stages-8808264c12ee20581563bebed6663d4e.js
 users.js: users-a7fa98ba2ef09a5dcc079d3f014a4e3c.js
 users/index.js: users-a7fa98ba2ef09a5dcc079d3f014a4e3c.js
-application.css: application-f08a83c420b357aaa694e858206ee5d0.css
-application/index.css: application-f08a83c420b357aaa694e858206ee5d0.css
+application.css: application-dc08e5ba3c72bc86d8b0515ddf1a9d57.css
+application/index.css: application-dc08e5ba3c72bc86d8b0515ddf1a9d57.css
 bootstrap_and_overrides.css: bootstrap_and_overrides-39602f492b44cad3b018a8c4e494e440.css
 bootstrap_and_overrides/index.css: bootstrap_and_overrides-39602f492b44cad3b018a8c4e494e440.css
 games.css: games-0ac6933e68f17afed8454e4470721c0d.css
@@ -117,8 +117,8 @@ jquery.bxslider.css: jquery.bxslider-b6ba9b067088a5849b4a53f733ef1db6.css
 jquery/index.bxslider.css: jquery.bxslider-b6ba9b067088a5849b4a53f733ef1db6.css
 scaffolds.css: scaffolds-4e1c83aee4efc6dfda6f86e06a0bab7e.css
 scaffolds/index.css: scaffolds-4e1c83aee4efc6dfda6f86e06a0bab7e.css
-stages.css: stages-e28231fbb9ad5dbf61c9af27ab49b8da.css
-stages/index.css: stages-e28231fbb9ad5dbf61c9af27ab49b8da.css
+stages.css: stages-3f1c50167c3ec42d226a61c9a88cde3d.css
+stages/index.css: stages-3f1c50167c3ec42d226a61c9a88cde3d.css
 token-input-facebook.css: token-input-facebook-021aba99f42ddbdd2e1a965dc5e9628d.css
 token-input-facebook/index.css: token-input-facebook-021aba99f42ddbdd2e1a965dc5e9628d.css
 token-input-mac.css: token-input-mac-1641e320ab3dd13541f6942fcda2741e.css
