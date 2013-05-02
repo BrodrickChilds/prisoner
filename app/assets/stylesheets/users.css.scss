@@ -1,3 +1,20 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.leaders-sort {
+  i {
+    display: none;
+    margin-left: 4px;
+  }
+
+  .asc {
+    i.icon-caret-up {
+      display: inline-block;
+      text-decoration: none;
+    }
+  }
+
+  .desc {
+    i.icon-caret-down {
+      display: inline-block;
+      text-decoration: none;
+    }
+  }
+}

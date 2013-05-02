@@ -16,9 +16,6 @@
       <ul class="nav">
         <% if current_user %>
           <li>
-            <%= link_to "Sign out", signout_path, id: "sign_out" %>
-          </li>
-          <li>
             <%= link_to current_user.name, current_user, class: "current_user", id: current_user.id %>
           </li>
           <li>
@@ -27,7 +24,10 @@
           <li>
             <%= link_to image_tag("small-facebook-icon.png") + " Invite your Facebook Friends","#",:id=>"invite_fb_friends"%>
           </li>
-        <% else %>
+           <li>
+            <%= link_to "Sign out", signout_path, id: "sign_out" %>
+          </li>
+       <% else %>
           <li>
             <%= link_to image_tag("small-facebook-icon.png") + " Sign in with Facebook", "#", id: "sign_in" %>
           </li>

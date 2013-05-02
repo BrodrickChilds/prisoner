@@ -3,16 +3,28 @@
     %title Leaderboard
     .span2
     .span8.my-container
-      %table.pretty
-        %tr
-          %th= sortable "name"
-          %th= sortable "time_left"
+      %ul.inline.leaders-list-options
+        %li Sort by:
+        %li.leaders-sort= sortable "name"
+        %li.leaders-sort= sortable "time_left"
+        %li
+        %li Options:
+        %li
+          %span.leaders-hide-by
+            %ul.inline
+              -if params[:facebook] == "yes"
+                %li
+                  = link_to ({:sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only Facebook friends" do
+                      %i.icon-check
+              -else
+                %li
+                  = link_to ({:facebook => "yes", :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only Facebook friends" do
+                      %i.icon-check-empty
+                    
+        %li
         -@leaders.each do |leader|
-          %tr
-            %td= leader.name
-            %td= leader.time_left
-        =#will_paginate @leaders
-        -#@leaders.each do |leader|
           .user
             .name
               =leader.name
