@@ -3,7 +3,8 @@
     .span2
     .span8.my-container
       .leader-info
-        -@leaders.each do |leader|
+        =will_paginate @leaders
+        -#@leaders.each do |leader|
           .user
             .name
               =leader.name

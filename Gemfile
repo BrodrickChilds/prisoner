@@ -10,6 +10,7 @@ gem 'jquery-tokeninput-rails'
 gem 'heroku'
 gem 'certified'
 gem 'seed_dumper'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'sqlite3'

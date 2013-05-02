@@ -16,6 +16,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.search(search)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+
   def self.random_user(current_user)
     total = User.count
     offset = rand(total)

@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def leaders
-    @leaders = User.all.sort_by { |u| u.time_left }
+    @leaders = User.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 15, :page => params[:page])
   end
 
   def random
