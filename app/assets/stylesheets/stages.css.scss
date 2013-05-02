@@ -334,17 +334,24 @@
 .game-unit{
   border-color:orange;
   border-style:solid;
-  padding-bottom:30px;
+  padding-bottom:50px;
+  padding-top:20px;
+  padding-left:10px;
+  padding-right:10px;
+
 }
 .respond{
   float:left;
+  width:100%;
 }
 .results{
   font-size:16 px;
 }
 
 .cbutton {
+    float:right;
     max-width: 25% !important;
-    magin-bottom:10px;
+    margin-bottom:35px;
+
 } 
  
