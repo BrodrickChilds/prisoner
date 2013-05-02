@@ -1,7 +1,13 @@
--@leaders.each do |leader|
-  .user
-    .name
-      =leader.name
-    .remaining
-      ="#{leader.time_left} weeks left"
-  %br
+.row-fluid.leaderboard
+  .span12 
+    .span2
+    .span8.my-container
+      .leader-info
+        -@leaders.each do |leader|
+          .user
+            .name
+              =leader.name
+            .remaining
+              ="#{leader.time_left} weeks left"
+          %br
+    .span2
