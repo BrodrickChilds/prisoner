@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  helper_method :sort_column, :sort_direction
   def index
     friend_ids = current_user.friend_ids(graph)
     if Rails.env.production?
@@ -34,7 +35,15 @@ class UsersController < ApplicationController
   end
 
   def leaders
-    @leaders = User.all.sort_by { |u| u.time_left }
+    unless sort_column == "time_left"
+      @leaders = User.order(sort_column + ' ' + sort_direction)
+    else
+      inversion = 1
+      if sort_direction == "desc"
+        inversion = -1
+      end
+      @leaders = User.all.sort_by { |u| u.time_left*inversion }
+    end
   end
 
   def random
@@ -49,5 +58,13 @@ class UsersController < ApplicationController
       end
       format.html
     end
+  end
+
+  def sort_column
+    %w[time_left name].include?(params[:sort]) ?  params[:sort] : "time_left"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:order]) ?  params[:order] : "asc"
   end
 end

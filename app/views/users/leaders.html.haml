@@ -1,9 +1,18 @@
 .row-fluid.leaderboard
   .span12 
+    %title Leaderboard
     .span2
     .span8.my-container
-      .leader-info
+      %table.pretty
+        %tr
+          %th= sortable "name"
+          %th= sortable "time_left"
         -@leaders.each do |leader|
+          %tr
+            %td= leader.name
+            %td= leader.time_left
+        =#will_paginate @leaders
+        -#@leaders.each do |leader|
           .user
             .name
               =leader.name
