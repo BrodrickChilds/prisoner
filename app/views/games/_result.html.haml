@@ -1,12 +1,13 @@
-%b Game against #{opponent_name}
-.opponent
+%p
+  %b Game against #{opponent_name}
+%p.opponent
   =opponent_name
   -if game.user_strat 
     betrayed
   -else 
     didn't betray
   you.
-.user
+%p.user
   Meanwhile, you
   -if game.opp_strat 
     betrayed

@@ -41,20 +41,20 @@ friend_handler = (event) ->
       create_game(info.user.name, info.user.id, info.url, info.show_info, info.last_five, info.time_left)
 
 create_game = (name, id, url, show_info, last_five, time_left) ->
-  friend_parent = $("<div></div>")
-  friend = $("<div></div>")
+  friend_parent = $("<div class='game'></div>")
+  friend = $("<div class='game-internal game-unit'></div>")
   friend_name = $("<div class='name'> </div>")
   if url == undefined
     friend_name.append(" " + name)
   else
     friend_name.append("<img src=" + url + ">")
     friend_name.append(" " + name)
-  links = $("<div class='actions'></div>")
-  betray_link = $("<a href=# class='game_respond light-link btn btn-success cbutton>Cooperate</a>")
-  no_betray_link = $("<a href=# class='game_respond light-link btn btn-danger cbutton'>Betray</a>")
-  links.append(betray_link)
-  links.append("<span> </span>")
+  links = $("<div class='respond'></div>")
+  betray_link = $("<a href=# class='game_respond light-link btn btn-success cbutton>Betray</a>")
+  no_betray_link = $("<a href=# class='game_respond light-link btn btn-danger cbutton'>Cooperate</a>")
   links.append(no_betray_link)
+  links.append("<span> </span>")
+  links.append(betray_link)
   information = $("<div class='recent-game-info'> </div>")
   information.append("Time left in prison: " + time_left + " weeks </br> Betrayed opponents in " + last_five + "% of their last five games on this level")
   friend.append(friend_name)
