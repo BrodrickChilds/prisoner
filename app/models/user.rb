@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #before_save :default_values
-  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity
+  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity, :birth_date, :politics, :gender, :religion, :education, :has_info
   has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
   def self.from_omniauth(auth)
@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.score = 520
+      user.has_info = false
       user.latest_stage = 1
       user.save!
     end
@@ -22,6 +23,11 @@ class User < ActiveRecord::Base
     else
       scoped
     end
+  end
+
+  def update_information(profile)
+    puts profile
+    update_attributes(:birth_date => profile["birthday"], :politics => profile["political"], :religion => profile["religion"], :gender => profile["gender"], :has_info => true, :education => profile["education"][profile["education"].size-1]["name"])
   end
 
   def self.random_user(current_user)

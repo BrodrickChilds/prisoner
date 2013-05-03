@@ -7,6 +7,9 @@ class StagesController < ApplicationController
       games = stage.games.where(:user_id => current_user.id, :complete => false)
       @games_and_stages.append({:stage => stage, :games => games.size})
     end
+    unless current_user.has_info
+      current_user.update_information(graph.get_object("me"))
+    end
     unseen_games = current_user.opp_games.where(:seen_bit => false, :complete => true)
     @unseen_count = unseen_games.size
 
