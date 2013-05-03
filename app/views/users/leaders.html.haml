@@ -1,8 +1,8 @@
 .row-fluid.leaderboard
   .span12 
     %title Leaderboard
-    .span2
-    .span8.my-container
+    .span1
+    .span10.my-container
       %ul.inline.leaders-list-options
         %li Sort by:
         %li.leaders-sort= sortable "name"
@@ -24,10 +24,10 @@
                       %i.icon-check-empty
                     
         %li
-        -@leaders.each do |leader|
-          .listuser.span8
-            .name.span3
-              =leader.name
-            .remaining.span4
-              ="#{leader.time_left} weeks left"
-          %br
+      -@leaders.each do |leader|
+        .listuser.span10
+          .leader-name.span5
+            =image_tag(@graph.get_picture(leader.uid))
+            =" #{leader.name}"
+          .remaining.span5
+            ="#{leader.time_left} weeks left"

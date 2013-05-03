@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def leaders
     unless sort_column == "time_left"
       if params[:facebook] == "yes"
-        @leaders = current_user.facebook_friends(graph).order(sort_column + ' ' + sort_direction)
+        @leaders = current_user.facebook_friends(graph, current_user).order(sort_column + ' ' + sort_direction)
       else
         @leaders = User.order(sort_column + ' ' + sort_direction)
       end
@@ -47,11 +47,12 @@ class UsersController < ApplicationController
         inversion = -1
       end
       if params[:facebook] == "yes"
-        @leaders = current_user.facebook_friends(graph).sort_by { |u| u.time_left*inversion }
+        @leaders = current_user.facebook_friends(graph, current_user).sort_by { |u| u.time_left*inversion }
       else
         @leaders = User.all.sort_by { |u| u.time_left*inversion }
       end
     end
+    @graph = graph
   end
 
   def random

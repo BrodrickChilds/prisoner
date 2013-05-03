@@ -52,9 +52,10 @@ class User < ActiveRecord::Base
     return friend_fbids.include?(User.find(friend_id).uid)
   end
   
-  def facebook_friends(graph)
+  def facebook_friends(graph, user)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
+    friend_fbids << user.uid
     friends = User.where(:uid => friend_fbids)
     return friends
   end
