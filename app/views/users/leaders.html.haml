@@ -25,10 +25,9 @@
                     
         %li
         -@leaders.each do |leader|
-          .user
-            .name
+          .listuser.span8
+            .name.span3
               =leader.name
-            .remaining
+            .remaining.span4
               ="#{leader.time_left} weeks left"
           %br
-    .span2
