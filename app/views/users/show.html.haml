@@ -11,29 +11,24 @@
             =@user.name
           .stat
             Cooperated with others: 
-            =@user.cooperates
-            times
+            =pluralize(@user.cooperates, "time")
           .stat
             Betrayed against others: 
-            =@user.betrays
-            times
+            =pluralize(@user.betrays, "time")
           .stat
             Was cooperated with : 
-            =@user.cooperated_against
-            times
+            =pluralize(@user.cooperated_against, "time")
           .stat
             Was betrayed against: 
-            =@user.betrayed_against
-            times
+            =pluralize(@user.betrayed_against, "time")
           .stat
             Time spent in prison: 
-            =@user.timespent
-            weeks
+            =pluralize(@user.time_spent, "week")
           .stat
             Time left from the sentence: 
-            =@user.time_left
-            weeks
+            =pluralize(@user.time_left, "week")
           .stat
             Progress towards freedom
             .progress.progress-striped.active.limit
               .bar.bar-warning{:style => "width:#{100*(250-(@user.score-@user.timespent))/250}%"}
+

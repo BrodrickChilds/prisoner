@@ -18,9 +18,22 @@
     }
   }
 }
-.listuser {
-  margin-top: 10px;
+.listuser{
+  a:link{
+    color:orange;
+  }
+  a:visited{
+    color:orange;
+  }
 }
 .remaining {
-  line-height: 4em;
+  margin-top: 1.3em;
+}
+.leaders-list-options {
+  a:link{
+    color:white;
+  }
+  a:visited{
+    color:white;
+  }
 }

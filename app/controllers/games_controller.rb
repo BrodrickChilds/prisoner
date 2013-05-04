@@ -6,7 +6,7 @@ class GamesController < ApplicationController
 
   def respond
     @game = Game.find(params[:game_id])
-    if @game.resolve(params[:strategy], @game.user, @game.opponent, graph)
+    if @game.resolve(params[:strategy], @game.user, @game.opponent, graph, graph.get_connections("me", "mutualfriends/#{@game.user.uid}").size)
       if @game.user.update_score(@game, 0) && @game.opponent.update_score(@game, 1)
         respond_to do |format|
           format.html { redirect_to game_results_path }

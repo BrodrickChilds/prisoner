@@ -14,21 +14,33 @@
             %ul.inline
               -if params[:facebook] == "yes"
                 %li
-                  = link_to ({:sort => params[:sort], :order => params[:order]}) do 
+                  = link_to ({:completed => params[:completed], :sort => params[:sort], :order => params[:order]}) do 
                     = succeed "Show only Facebook friends" do
                       %i.icon-check
               -else
                 %li
-                  = link_to ({:facebook => "yes", :sort => params[:sort], :order => params[:order]}) do 
+                  = link_to ({:facebook => "yes", :completed => params[:completed], :sort => params[:sort], :order => params[:order]}) do 
                     = succeed "Show only Facebook friends" do
                       %i.icon-check-empty
-                    
+              -if params[:completed] == "yes"
+                %li
+                  = link_to ({:facebook => params[:facebook], :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only released convicts" do
+                      %i.icon-check
+              -else
+                %li
+                  = link_to ({:completed => "yes", :facebook => params[:facebook], :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only released convicts" do
+                      %i.icon-check-empty
+                   
         %li
       -@leaders.each do |leader|
-        .listuser.span10
-          .leader-name.span5
-            =image_tag(@graph.get_picture(leader.uid))
-            =" #{leader.name}"
-          .remaining.span5
+        .listuser.span11
+          %ul.inline.leader-name.span4
+            %li= link_to image_tag(@graph.get_picture(leader.uid)), leader
+            %li= link_to leader.name, leader
+          .remaining.span4
             ="#{leader.time_left} weeks left"
-         
+          .remaining.span4
+            -if leader.completion_time
+              ="Released in #{leader.completion_time} weeks"

@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  attr_accessible :user_id, :user_tokens, :complete, :opp_id, :opp_strat, :seen_bit, :stage, :user_strat, :stage_id, :user_time_left, :opp_time_left, :user_history, :opp_history, :fb_friend, :same_parity
+  attr_accessible :user_id, :user_tokens, :complete, :opp_id, :opp_strat, :seen_bit, :stage, :user_strat, :stage_id, :user_time_left, :opp_time_left, :user_history, :opp_history, :fb_friend, :same_parity, :mutual_friends
   attr_reader :user_tokens
   belongs_to :user, :class_name => "User"
   belongs_to :opponent, :class_name => "User", :foreign_key => "opp_id"
@@ -14,12 +14,12 @@ class Game < ActiveRecord::Base
     friend_ids = ids.split(",")
   end
 
-  def resolve(strat, user, opponent, graph)    
+  def resolve(strat, user, opponent, graph, mutuals)    
     if complete == false
       if stage_id == 1
-        update_attributes(:user_strat => strat, :complete => true, :user_time_left => user.score, :opp_time_left => opponent.score, :user_history => user.last_five(stage_id), :opp_history => opponent.last_five(stage_id), :fb_friend => user.facebook_friends?(opponent.id, graph), :same_parity => user.same_parity?(opponent), :seen_bit => true)
+        update_attributes(:user_strat => strat, :complete => true, :fb_friend => user.facebook_friends?(opponent.id, graph), :same_parity => user.same_parity?(opponent), :seen_bit => true)
       else
-        update_attributes(:user_strat => strat, :complete => true, :user_time_left => user.score, :opp_time_left => opponent.score, :user_history => user.last_five(stage_id), :opp_history => opponent.last_five(stage_id), :fb_friend => user.facebook_friends?(opponent.id, graph), :same_parity => user.same_parity?(opponent))
+        update_attributes(:user_strat => strat, :complete => true, :user_time_left => user.time_left, :opp_time_left => opponent.time_left, :user_history => user.last_five(stage_id), :opp_history => opponent.last_five(stage_id), :fb_friend => user.facebook_friends?(opponent.id, graph), :same_parity => user.same_parity?(opponent), :mutual_friends => mutuals)
       end
     end
   end
