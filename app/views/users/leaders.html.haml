@@ -37,8 +37,8 @@
       -@leaders.each do |leader|
         .listuser.span11
           %ul.inline.leader-name.span4
-            %li= image_tag(@graph.get_picture(leader.uid))
-            %li= " #{leader.name}"
+            %li= link_to image_tag(@graph.get_picture(leader.uid)), leader
+            %li= link_to leader.name, leader
           .remaining.span4
             ="#{leader.time_left} weeks left"
           .remaining.span4
