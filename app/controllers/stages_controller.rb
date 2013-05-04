@@ -1,11 +1,17 @@
 class StagesController < ApplicationController
   def index
     @stages = Stage.all
-    @stage_ids = @stages.map { |stage| stage.id }
+    @stage_ids = @stages.map { |stage| stage.level }
     @games_and_stages = []
     @stages.each do |stage|
       games = stage.games.where(:user_id => current_user.id, :complete => false)
       @games_and_stages.append({:stage => stage, :games => games.size})
+    end
+    unless current_user.has_info
+      current_user.update_information(graph.get_object("me"))
+    end
+    if current_user.time_left < 1
+      current_user.reset
     end
     unseen_games = current_user.opp_games.where(:seen_bit => false, :complete => true)
     @unseen_count = unseen_games.size

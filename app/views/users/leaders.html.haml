@@ -1,13 +1,46 @@
 .row-fluid.leaderboard
   .span12 
-    .span2
-    .span8.my-container
-      .leader-info
-        -@leaders.each do |leader|
-          .user
-            .name
-              =leader.name
-            .remaining
-              ="#{leader.time_left} weeks left"
-          %br
-    .span2
+    %title Leaderboard
+    .span1
+    .span10.my-container
+      %ul.inline.leaders-list-options
+        %li Sort by:
+        %li.leaders-sort= sortable "name"
+        %li.leaders-sort= sortable "time_left"
+        %li
+        %li Options:
+        %li
+          %span.leaders-hide-by
+            %ul.inline
+              -if params[:facebook] == "yes"
+                %li
+                  = link_to ({:completed => params[:completed], :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only Facebook friends" do
+                      %i.icon-check
+              -else
+                %li
+                  = link_to ({:facebook => "yes", :completed => params[:completed], :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only Facebook friends" do
+                      %i.icon-check-empty
+              -if params[:completed] == "yes"
+                %li
+                  = link_to ({:facebook => params[:facebook], :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only released convicts" do
+                      %i.icon-check
+              -else
+                %li
+                  = link_to ({:completed => "yes", :facebook => params[:facebook], :sort => params[:sort], :order => params[:order]}) do 
+                    = succeed "Show only released convicts" do
+                      %i.icon-check-empty
+                   
+        %li
+      -@leaders.each do |leader|
+        .listuser.span11
+          %ul.inline.leader-name.span4
+            %li= link_to image_tag(@graph.get_picture(leader.uid)), leader
+            %li= link_to leader.name, leader
+          .remaining.span4
+            ="#{leader.time_left} weeks left"
+          .remaining.span4
+            -if leader.completion_time
+              ="Released in #{leader.completion_time} weeks"

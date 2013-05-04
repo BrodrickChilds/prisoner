@@ -11,11 +11,12 @@ window.fbAsyncInit = ->
 
   $('#sign_in').click (e) ->
     e.preventDefault()
-    FB.login (response) ->
+    FB.login (response) -> 
       if response.authResponse
         window.location = '/auth/facebook'
       else
         window.location = '/'
+    ,{scope: 'user_likes,user_birthday,user_education_history,user_religion_politics'}
 
   user_name = $("a.current_user")[0]["innerText"]
 

@@ -7,6 +7,9 @@
       .game-description
         .my-container.description-container
           .description
+            .back
+              =link_to "Back to Stages", stages_path
+            %br
             .level{:id => @stage.level}
               %b Level:
               = @stage.level
@@ -45,5 +48,3 @@
               -@picture = @graph.get_picture(game.opponent.uid)
             .game{:id => game.id}
               =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
-
-= link_to 'Back', stages_path

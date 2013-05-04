@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #before_save :default_values
-  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity
+  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity, :birth_date, :politics, :gender, :religion, :education, :has_info, :completion_time, :time_spent
   has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
   def self.from_omniauth(auth)
@@ -10,9 +10,28 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      user.score = 520
+      user.score = 250
+      user.has_info = false
       user.latest_stage = 1
+      user.time_spent = 0
       user.save!
+    end
+  end
+
+  def self.search(search)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+
+  def update_information(profile)
+    puts profile
+    if profile["education"]
+      update_attributes(:birth_date => profile["birthday"], :politics => profile["political"], :religion => profile["religion"], :gender => profile["gender"], :has_info => true, :education => profile["education"][profile["education"].size-1]["name"])
+    else
+      update_attributes(:birth_date => profile["birthday"], :politics => profile["political"], :religion => profile["religion"], :gender => profile["gender"], :has_info => true)
     end
   end
 
@@ -27,6 +46,14 @@ class User < ActiveRecord::Base
     return user  
   end
 
+  def reset
+    if completion_time && time_spent > completion_time
+      update_attributes(:score => 250, :time_spent => 0)
+    else
+      update_attributes(:completion_time => time_spent, :score => 250, :time_spent => 0)
+    end
+  end
+
   def get_fb_friends(graph)
     friends = graph.get_connections("me", "friends")
     return friends
@@ -37,6 +64,15 @@ class User < ActiveRecord::Base
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     return friend_fbids.include?(User.find(friend_id).uid)
   end
+  
+  def facebook_friends(graph, user)
+    fb_friends = get_fb_friends(graph)
+    friend_fbids = fb_friends.map{|friend| friend["id"]}
+    friend_fbids << user.uid
+    friends = User.where(:uid => friend_fbids)
+    return friends
+  end
+
 
   def friend_ids(graph)
     fb_friends = get_fb_friends(graph)
@@ -48,7 +84,7 @@ class User < ActiveRecord::Base
 
   def self.opponent_name(opp, user)
     if opp == user
-      return "AI"
+      return "Big Pete"
     else
       return opp.name
     end
@@ -69,7 +105,7 @@ class User < ActiveRecord::Base
       end
     end
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
-    update_attributes(:score => self.score+user_update_score)
+    update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
     save
   end
 
@@ -113,7 +149,7 @@ class User < ActiveRecord::Base
   end
 
   def time_left
-    score-timespent
+    score-time_spent
   end
 
   def result_games(level)
@@ -124,6 +160,7 @@ private
   def default_values
     self.score ||= 0
     self.latest_stage ||= 1
+    self.time_spent ||= 0
   end
 
 end
