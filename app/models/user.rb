@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
 
   def self.opponent_name(opp, user)
     if opp == user
-      return "AI"
+      return "Big Pete"
     else
       return opp.name
     end
