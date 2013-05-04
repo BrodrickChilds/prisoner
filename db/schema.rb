@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130504111437) do
+ActiveRecord::Schema.define(:version => 20130504123753) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20130504111437) do
     t.boolean  "has_info"
     t.string   "education"
     t.string   "birth_date"
+    t.integer  "completion_time"
+    t.integer  "time_spent"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"

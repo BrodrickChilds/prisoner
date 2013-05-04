@@ -35,22 +35,22 @@ class UsersController < ApplicationController
   end
 
   def leaders
+    if params[:facebook] == "yes"
+      @leaders = current_user.facebook_friends(graph, current_user)
+    else
+      @leaders = User.where("score > ?", -500)
+    end
+    if params[:completed] == "yes"
+      @leaders = @leaders.where("completion_time > ?", 0)
+    end
     unless sort_column == "time_left"
-      if params[:facebook] == "yes"
-        @leaders = current_user.facebook_friends(graph, current_user).order(sort_column + ' ' + sort_direction)
-      else
-        @leaders = User.order(sort_column + ' ' + sort_direction)
-      end
+      @leaders = @leaders.order(sort_column + ' ' + sort_direction)
     else
       inversion = 1
       if sort_direction == "desc"
         inversion = -1
       end
-      if params[:facebook] == "yes"
-        @leaders = current_user.facebook_friends(graph, current_user).sort_by { |u| u.time_left*inversion }
-      else
-        @leaders = User.all.sort_by { |u| u.time_left*inversion }
-      end
+      @leaders = @leaders.sort_by { |u| u.time_left*inversion }
     end
     @graph = graph
   end

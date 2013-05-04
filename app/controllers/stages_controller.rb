@@ -10,6 +10,9 @@ class StagesController < ApplicationController
     unless current_user.has_info
       current_user.update_information(graph.get_object("me"))
     end
+    if current_user.time_left < 1
+      current_user.reset
+    end
     unseen_games = current_user.opp_games.where(:seen_bit => false, :complete => true)
     @unseen_count = unseen_games.size
 
