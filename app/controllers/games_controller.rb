@@ -10,7 +10,7 @@ class GamesController < ApplicationController
       if @game.user.update_score(@game, 0) && @game.opponent.update_score(@game, 1)
         respond_to do |format|
           format.html { redirect_to game_results_path }
-          format.js { render :partial => "games/response", :locals => {:game => @game, :user_name => User.opponent_name(@game.user, current_user), :opp_name => User.opponent_name(@game.opponent, current_user), :user => User.find(current_user.id), :mutuals => graph.get_connections("me", "mutualfriends/#{opponent.uid}").size}, :layout => false }
+          format.js { render :partial => "games/response", :locals => {:game => @game, :user_name => User.opponent_name(@game.user, current_user), :opp_name => User.opponent_name(@game.opponent, current_user), :user => User.find(current_user.id), :mutuals => graph.get_connections("me", "mutualfriends/#{@game.user.uid}").size}, :layout => false }
         end
       else
         redirect_to @game.stage
