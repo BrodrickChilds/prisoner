@@ -1,6 +1,6 @@
 class StagesController < ApplicationController
   def index
-    @stages = Stage.all
+    @stages = Stage.order("level")
     @stage_ids = @stages.map { |stage| stage.level }
     @games_and_stages = []
     @stages.each do |stage|
