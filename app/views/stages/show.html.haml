@@ -2,6 +2,12 @@
 
 
 .row-fluid.backpic{:style =>"background-image:url(/assets/#{@stage.level}.jpg);"}
+  .my-container.span12
+    %ul.inline
+      %li
+        %h5 Go to:
+      -@games_and_stages.each do |s|
+        %li= link_to "#{s[:stage].name} (#{s[:games]})", s[:stage], :class => "light-link"
   .span12.middle-panel
     .span6
       .game-description
@@ -33,18 +39,19 @@
                   %b You now have #{current_user.time_left} weeks left.
 
     .span6
-      .my-container.invite
-        .searchbox
-          -if @stage.level > 1
-            Find an inmate
-            =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
-        .pending-games
-          -if @games.size > 0
-            %p Inmates waiting for your response
-        .games
-          -@games.each do |game|
-            -opponent_name = User.opponent_name(game.opponent, current_user)
+      .invite
+        .my-container
+          .searchbox
             -if @stage.level > 1
-              -@picture = @graph.get_picture(game.opponent.uid)
-            .game{:id => game.id}
-              =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
+              Find an inmate
+              =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
+          .pending-games
+            -if @games.size > 0
+              %p Inmates waiting for your response
+          .games
+            -@games.each do |game|
+              -opponent_name = User.opponent_name(game.opponent, current_user)
+              -if @stage.level > 1
+                -@picture = @graph.get_picture(game.opponent.uid)
+              .game{:id => game.id}
+                =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
