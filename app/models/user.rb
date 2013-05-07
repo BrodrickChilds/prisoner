@@ -91,19 +91,36 @@ class User < ActiveRecord::Base
   end
 
   def update_score(game, user_index)
-    if game.user_strat == false
-      if game.opp_strat == false
-        stage_index = 0
+    if Rails.env.production?
+      if game.user_strat == 'false'
+        if game.opp_strat == 'false'
+          stage_index = 0
+        else
+          stage_index = 1
+        end
       else
-        stage_index = 1
+        if game.opp_strat == 'true'
+          stage_index = 2
+        else
+          stage_index = 3
+        end
       end
     else
-      if game.opp_strat == true
-        stage_index = 2
+      if game.user_strat == false
+        if game.opp_strat == false
+          stage_index = 0
+        else
+          stage_index = 1
+        end
       else
-        stage_index = 3
+        if game.opp_strat == true
+          stage_index = 2
+        else
+          stage_index = 3
+        end
       end
     end
+
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
     if game.stage.level > 1
       update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
