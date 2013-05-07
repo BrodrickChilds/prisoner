@@ -27,6 +27,12 @@ class StagesController < ApplicationController
   def show
     @game = Game.new
     @stage = Stage.find(params[:id])
+    @stages = Stage.all
+    @games_and_stages = []
+    @stages.each do |stage|
+      games = stage.games.where(:user_id => current_user.id, :complete => false)
+      @games_and_stages.append({:stage => stage, :games => games.size})
+    end
     @graph = graph
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     @picture = 'Inmate.jpg'
