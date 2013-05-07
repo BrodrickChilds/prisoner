@@ -142,12 +142,6 @@ class User < ActiveRecord::Base
     return id%2 == opponent.id%2
   end
 
-  def timespent
-
-    games.where(:complete => true).where("stage_id != ?", 1).count + opp_games.where(:complete => true).where("stage_id != ?", 1).count
-
-  end
-
   def time_left
     score-time_spent
   end
