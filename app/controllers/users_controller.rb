@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def sort_column
-    %w[time_left name].include?(params[:sort]) ?  params[:sort] : "time_left"
+    %w[completion_time time_left name].include?(params[:sort]) ?  params[:sort] : "time_left"
   end
 
   def sort_direction
