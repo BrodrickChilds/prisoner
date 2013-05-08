@@ -8,6 +8,8 @@
         %h5 Go to:
       -@games_and_stages.each do |s|
         %li= link_to "#{s[:stage].name} (#{s[:games]})", s[:stage], :class => "light-link"
+      %li.float-right
+        ="You have #{current_user.time_left} weeks left"
   .span12.middle-panel
     .span6
       .game-description
