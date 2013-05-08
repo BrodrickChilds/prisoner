@@ -34,7 +34,7 @@
                     = succeed "Show only released convicts" do
                       %i.icon-check-empty
                    
-        %li
+        %li= will_paginate @leaders
       -@leaders.each do |leader|
         .listuser.span11
           %ul.inline.leader-name.span4
