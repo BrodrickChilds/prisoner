@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
   def index
-    friend_ids = current_user.friend_ids(graph)
     if Rails.env.production?
-      @friends = User.where("name ilike ?", "%#{params[:q]}%").where(:id => friend_ids)
+      @friends = User.where("name ilike ?", "%#{params[:q]}%")
     else
-      @friends = User.where("name like ?", "%#{params[:q]}%").where(:id => friend_ids)
+      @friends = User.where("name like ?", "%#{params[:q]}%")
     end
     @friends = @friends.map(&:attributes)
     @friends.each do |friend|
