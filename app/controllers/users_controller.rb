@@ -26,10 +26,11 @@ class UsersController < ApplicationController
     respond_to do |format|
       if show_info
         format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
+        format.html
       else
         format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+        format.html { redirect_to root_path, :flash => {:notice => "You cannot see this user's information" }}
       end
-      format.html
     end
   end
 

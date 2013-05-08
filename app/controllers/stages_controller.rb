@@ -27,7 +27,7 @@ class StagesController < ApplicationController
   def show
     @game = Game.new
     @stage = Stage.find(params[:id])
-    @stages = Stage.all
+    @stages = Stage.order("level")
     @games_and_stages = []
     @stages.each do |stage|
       games = stage.games.where(:user_id => current_user.id, :complete => false)
