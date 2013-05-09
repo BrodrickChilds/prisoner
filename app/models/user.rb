@@ -132,10 +132,10 @@ class User < ActiveRecord::Base
     recent_game_ids = recent_games.map{ |game| game.id }
     percent_betray = 0
     if recent_games.count>=5
-      betray_num = Game.where("user_id = ? OR opp_id = ?", id, id).where(:id => recent_game_ids, :user_strat => true).count
+      betray_num = Game.where("user_id = ?", id).where(:id => recent_game_ids, :user_strat => true).count + Game.where("opp_id = ?", id).where(:id => recent_game_ids, :opp_strat => true).count
       percent_betray = (betray_num / 5.0) * 100
     else
-      betray_num = Game.where("user_id = ? OR opp_id = ?", id, id).where(:id => recent_game_ids, :user_strat => true).count
+      betray_num = Game.where("user_id = ?", id).where(:id => recent_game_ids, :user_strat => true).count + Game.where("opp_id = ?", id).where(:id => recent_game_ids, :opp_strat => true).count
       percent_betray = (betray_num / [recent_games.count, 1].max) * 100
     end
   end
