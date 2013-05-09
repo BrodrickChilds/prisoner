@@ -35,12 +35,14 @@
                       %i.icon-check-empty
                    
         %li= will_paginate @leaders
-      -@leaders.each do |leader|
+      -@leaders.each_with_index do |leader, index|
         .listuser.span11
+          .remaining.span1
+            ="#{10*(params[:page] || 0)+index + 1}."
           %ul.inline.leader-name.span4
             %li= image_tag(@graph.get_picture(leader.uid))
             %li= leader.name
-          .remaining.span4
+          .remaining.span3
             ="#{leader.time_left} weeks left"
           .remaining.span4
             -if leader.completion_time
