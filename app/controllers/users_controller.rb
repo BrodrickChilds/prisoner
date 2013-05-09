@@ -25,10 +25,10 @@ class UsersController < ApplicationController
     show_info = current_user.same_parity?(@user)
     respond_to do |format|
       if show_info
-        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true, :send_reminder => @user.send_reminder?}  }
         format.html
       else
-        format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+        format.json { render :json => {:user => @user, :url => @picture, :show_info => false, :send_reminder => @user.send_reminder?} }
         format.html { redirect_to root_path, :flash => {:notice => "You cannot see this user's information" }}
       end
     end
@@ -65,9 +65,9 @@ class UsersController < ApplicationController
     show_info = current_user.same_parity?(@user)
     respond_to do |format|
       if show_info
-        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true, :send_reminder => @user.send_reminder?}  }
       else
-        format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+        format.json { render :json => {:user => @user, :url => @picture, :show_info => false, :send_reminder => @user.send_reminder?} }
       end
       format.html
     end
@@ -79,5 +79,15 @@ class UsersController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:order]) ?  params[:order] : "asc"
+  end
+
+  def update_reminder
+    @user = User.find(params[:user_id])
+    respond_to do |format|
+      format.js { 
+        @user.update_attributes(:last_reminder => Time.now) 
+        render :nothing => true
+      }
+    end
   end
 end

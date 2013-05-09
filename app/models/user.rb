@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #before_save :default_values
-  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity, :birth_date, :politics, :gender, :religion, :education, :has_info, :completion_time, :time_spent
+  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity, :birth_date, :politics, :gender, :religion, :education, :has_info, :completion_time, :time_spent, :last_reminder
   has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
   def self.from_omniauth(auth)
@@ -44,6 +44,14 @@ class User < ActiveRecord::Base
       user = User.first(:offset => offset)
     end
     return user  
+  end
+
+  def send_reminder?
+    if !self.last_reminder || self.last_reminder < 1.day.ago
+      return true
+    else
+      return false
+    end
   end
 
   def reset
