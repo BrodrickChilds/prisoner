@@ -70,7 +70,7 @@ create_game = (name, id, uid, url, show_info, last_five, time_left, send_reminde
   $('.pending-games').prepend(friend_parent)
   
 betrayal_handler = (friend, intent, friend_id, uid, send_reminder) ->
-  if true || send_reminder
+  if send_reminder
     send_game_reminder(friend_id, uid)
   betray = false
   level = $('.level').attr('id')
