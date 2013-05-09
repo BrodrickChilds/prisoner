@@ -52,6 +52,9 @@ class UsersController < ApplicationController
       end
       @leaders = @leaders.sort_by { |u| u.time_left*inversion }
     end
+    if current_user.time_left < 1
+      current_user.reset
+    end
     @leaders = @leaders.paginate(:per_page => 10, :page => params[:page])
     @graph = graph
   end

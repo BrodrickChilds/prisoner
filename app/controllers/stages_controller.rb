@@ -33,6 +33,9 @@ class StagesController < ApplicationController
       games = stage.games.where(:user_id => current_user.id, :complete => false)
       @games_and_stages.append({:stage => stage, :games => games.size})
     end
+    if current_user.time_left < 1
+      current_user.reset
+    end
     @graph = graph
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     @picture = 'Inmate.jpg'
