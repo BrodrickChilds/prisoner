@@ -38,7 +38,10 @@
       -@leaders.each_with_index do |leader, index|
         .listuser.span11
           .remaining.span1
-            ="#{10*(params[:page] || 0)+index + 1}."
+            -if params[:page]
+              ="#{10*params[:page].to_i+index + 1}."
+            -else  
+              ="#{index + 1}."
           %ul.inline.leader-name.span4
             %li= image_tag(@graph.get_picture(leader.uid))
             %li= leader.name
