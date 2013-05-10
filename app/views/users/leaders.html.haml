@@ -46,7 +46,7 @@
             %li= image_tag(@graph.get_picture(leader.uid))
             %li= leader.name
           .remaining.span3
-            ="#{leader.time_left} weeks left"
+            ="#{[leader.time_left, 0].max} weeks left in current sentence"
           .remaining.span4
             -if leader.completion_time
-              ="Released in #{leader.completion_time} weeks"
+              ="Previously released in #{leader.completion_time} weeks"
