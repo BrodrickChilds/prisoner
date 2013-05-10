@@ -6,7 +6,7 @@
   -if current_user.same_parity?(game.opponent) and game.stage.level > 1
     .recent-game-info
       Time left in prison:
-      =game.opponent.time_left
+      =[game.opponent.time_left, 1].max
       Weeks
       %br
       Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their recent games on this level

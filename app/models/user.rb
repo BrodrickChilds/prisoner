@@ -116,6 +116,9 @@ class User < ActiveRecord::Base
     if game.stage.level > 1
       update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
     end
+    if score < 1
+      reset
+    end
     save
   end
 
