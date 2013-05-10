@@ -33,9 +33,9 @@
           %p.score-summary
             %b Score summary for #{@stage.name}:
             %p.mutual-cooperates
-              If both inmates cooperate, each gets #{Prisoner::Application::PAYOFF[@stage.level][0][0]} weeks off.
+              If both inmates cooperate, each gets #{-1*Prisoner::Application::PAYOFF[@stage.level][0][0]} weeks off.
             %p.coop-betray
-              If one inmate cooperates and the other betrays, the betrayer gets #{Prisoner::Application::PAYOFF[@stage.level][1][1]} weeks off, and cooperator gets #{Prisoner::Application::PAYOFF[@stage.level][1][0]} weeks tacked on.
+              If one inmate cooperates and the other betrays, the betrayer gets #{-1*Prisoner::Application::PAYOFF[@stage.level][1][1]} weeks off, and cooperator gets #{Prisoner::Application::PAYOFF[@stage.level][1][0]} weeks tacked on.
             %p.mutual-betrays
               If both inmates betray, they both get #{Prisoner::Application::PAYOFF[@stage.level][3][0]} weeks added on to their sentence.
           -if @result_games.size > 0
