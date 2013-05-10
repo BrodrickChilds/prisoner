@@ -7,6 +7,7 @@
         %li Sort by:
         %li.leaders-sort= sortable "name"
         %li.leaders-sort= sortable "time_left"
+        %li.leaders-sort= sortable "completion_time"
         %li
         %li Options:
         %li
@@ -33,14 +34,19 @@
                     = succeed "Show only released convicts" do
                       %i.icon-check-empty
                    
-        %li
-      -@leaders.each do |leader|
+        %li= will_paginate @leaders
+      -@leaders.each_with_index do |leader, index|
         .listuser.span11
+          .remaining.span1
+            -if params[:page]
+              ="#{10*(params[:page].to_i-1)+index + 1}."
+            -else  
+              ="#{index + 1}."
           %ul.inline.leader-name.span4
-            %li= link_to image_tag(@graph.get_picture(leader.uid)), leader
-            %li= link_to leader.name, leader
-          .remaining.span4
-            ="#{leader.time_left} weeks left"
+            %li= image_tag(@graph.get_picture(leader.uid))
+            %li= leader.name
+          .remaining.span3
+            ="#{[leader.time_left, 0].max} weeks left in current sentence"
           .remaining.span4
             -if leader.completion_time
-              ="Released in #{leader.completion_time} weeks"
+              ="Previously released in #{leader.completion_time} weeks"

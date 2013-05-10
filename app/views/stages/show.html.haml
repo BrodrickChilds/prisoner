@@ -2,6 +2,14 @@
 
 
 .row-fluid.backpic{:style =>"background-image:url(/assets/#{@stage.level}.jpg);"}
+  .my-container.span12
+    %ul.inline
+      %li
+        %h5 Go to:
+      -@games_and_stages.each do |s|
+        %li= link_to "#{s[:stage].name} (#{s[:games]})", s[:stage], :class => "light-link"
+      %li.float-right
+        ="You have #{current_user.time_left} weeks left"
   .span12.middle-panel
     .span6
       .game-description
@@ -21,6 +29,27 @@
               %b Description:
               = @stage.description
 
+
+          -if @stage.level == 1
+            %p.score-summary
+              %b Score summary for #{@stage.name}:
+              %p.mutual-cooperates
+                If you and Big Pete cooperate, you'll have medication and he will have the cigarettes, quid pro quo.
+              %p.coop-betray
+                If Big Pete betrays you, and you cooperate, he'll get all the supplies while you get nothing.  The opposite is true if you betray Big Pete and he cooperates with you.
+              %p.mutual-betrays
+                If you and Big Pete betray each other, you'll both be stuck with what you originally had, but neither of you will have what you wanted.
+            %p Check out the other stages (at the top) in order to get time off your sentence!
+          -else
+            %p.score-summary
+              %b Score summary for #{@stage.name}:
+              %p.mutual-cooperates
+                If both inmates cooperate, each gets #{-1*Prisoner::Application::PAYOFF[@stage.level][0][0]} weeks off.
+              %p.coop-betray
+                If one inmate cooperates and the other betrays, the betrayer gets #{-1*Prisoner::Application::PAYOFF[@stage.level][1][1]} weeks off, and cooperator gets #{Prisoner::Application::PAYOFF[@stage.level][1][0]} weeks tacked on.
+              %p.mutual-betrays
+                If both inmates betray, they both get #{Prisoner::Application::PAYOFF[@stage.level][3][0]} weeks added on to their sentence.
+
           -if @result_games.size > 0
             %br
             .results
@@ -33,18 +62,19 @@
                   %b You now have #{current_user.time_left} weeks left.
 
     .span6
-      .my-container.invite
-        .searchbox
-          -if @stage.level > 1
-            Find an inmate
-            =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
-        .pending-games
-          -if @games.size > 0
-            %p Inmates waiting for your response
-        .games
-          -@games.each do |game|
-            -opponent_name = User.opponent_name(game.opponent, current_user)
+      .invite
+        .my-container
+          .searchbox
             -if @stage.level > 1
-              -@picture = @graph.get_picture(game.opponent.uid)
-            .game{:id => game.id}
-              =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
+              Find an inmate
+              =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
+          .pending-games
+            -if @games.size > 0
+              %p Inmates waiting for your response
+          .games
+            -@games.each do |game|
+              -opponent_name = User.opponent_name(game.opponent, current_user)
+              -if @stage.level > 1
+                -@picture = @graph.get_picture(game.opponent.uid)
+              .game{:id => game.id}
+                =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}

@@ -1,5 +1,7 @@
 Prisoner::Application.routes.draw do
-  resources :users
+  resources :users do
+    put "update_reminder"
+  end
   match 'random_user', to: 'users#random', as: 'random_user'
   match 'leaderboard', to: 'users#leaders', as: 'leaderboard'
   match 'about', to:'home#about', as: 'about'

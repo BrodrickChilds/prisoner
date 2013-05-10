@@ -1,6 +1,6 @@
 class StagesController < ApplicationController
   def index
-    @stages = Stage.all
+    @stages = Stage.order("level")
     @stage_ids = @stages.map { |stage| stage.level }
     @games_and_stages = []
     @stages.each do |stage|
@@ -27,6 +27,15 @@ class StagesController < ApplicationController
   def show
     @game = Game.new
     @stage = Stage.find(params[:id])
+    @stages = Stage.order("level")
+    @games_and_stages = []
+    @stages.each do |stage|
+      games = stage.games.where(:user_id => current_user.id, :complete => false)
+      @games_and_stages.append({:stage => stage, :games => games.size})
+    end
+    if current_user.time_left < 1
+      current_user.reset
+    end
     @graph = graph
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     @picture = 'Inmate.jpg'
