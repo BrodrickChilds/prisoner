@@ -41,9 +41,11 @@
     The site will be going down for a short maintenance at 12pm (noon) EST.  It should be up within 20 minutes. Thank you for your patience
   </div>
 
-  <div class="notice alert alert-error">
-    <%= flash[:notice] %>
-  </div>
+  <% if flash[:notice] %>
+    <div class="notice alert alert-error">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
 
   <%= yield %>
 
