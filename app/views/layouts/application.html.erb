@@ -14,7 +14,6 @@
   <div class="navbar navbar-inverse">
     <div class="navbar-inner">
       <%= link_to "Prisoner", root_path, {:class => "brand"} %>
-      <%=# link_to "fail", asdfasdfasdf_path, {:class => "failure"} %>
       <ul class="nav">
         <% if current_user %>
           <li>
@@ -37,12 +36,6 @@
       </ul>
     </div>
   </div>
-
-  <%- if false %>
-    <div class="alert alert-error">
-      The site will be going down for a short maintenance at somepoint later today (5/12).  It should be up within 20 minutes. Thank you for your patience
-    </div>
-  <% end %>
 
   <% if flash[:notice] %>
     <div class="notice alert alert-error">
