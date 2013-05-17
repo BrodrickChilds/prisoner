@@ -22,7 +22,7 @@ game_response_handler = (event) ->
       hide_game = -> 
         game_response.fadeOut('slow')
         if level == "1"
-          location.reload()
+          window.location = "/stages/2"
       setTimeout hide_game, 5000
 
   return false
