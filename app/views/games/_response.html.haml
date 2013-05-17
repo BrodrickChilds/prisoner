@@ -34,5 +34,9 @@
         didn't betray
       =user_name
 
-.score
-  You now have #{user.time_left} weeks left.
+-if game.stage.level == 1
+  .score
+    Now try to play some games in other places for time off your sentence!
+-else
+  .score
+    You now have #{user.time_left} weeks left.
