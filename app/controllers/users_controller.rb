@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
   def index
-    friend_ids = current_user.friend_ids(graph)
     if Rails.env.production?
-      @friends = User.where("name ilike ?", "%#{params[:q]}%").where(:id => friend_ids)
+      @friends = User.where("name ilike ?", "%#{params[:q]}%")
     else
-      @friends = User.where("name like ?", "%#{params[:q]}%").where(:id => friend_ids)
+      @friends = User.where("name like ?", "%#{params[:q]}%")
     end
     @friends = @friends.map(&:attributes)
     @friends.each do |friend|
@@ -26,11 +25,12 @@ class UsersController < ApplicationController
     show_info = current_user.same_parity?(@user)
     respond_to do |format|
       if show_info
-        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true, :send_reminder => @user.send_reminder?}  }
+        format.html
       else
-        format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+        format.json { render :json => {:user => @user, :url => @picture, :show_info => false, :send_reminder => @user.send_reminder?} }
+        format.html { redirect_to root_path, :flash => {:notice => "You cannot see this user's information" }}
       end
-      format.html
     end
   end
 
@@ -52,6 +52,10 @@ class UsersController < ApplicationController
       end
       @leaders = @leaders.sort_by { |u| u.time_left*inversion }
     end
+    if current_user.time_left < 1
+      current_user.reset
+    end
+    @leaders = @leaders.paginate(:per_page => 10, :page => params[:page])
     @graph = graph
   end
 
@@ -61,19 +65,29 @@ class UsersController < ApplicationController
     show_info = current_user.same_parity?(@user)
     respond_to do |format|
       if show_info
-        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true}  }
+        format.json { render :json => {:user => @user, :url => @picture, :last_five => @user.last_five(session[:level]), :time_left => @user.time_left, :show_info => true, :send_reminder => @user.send_reminder?}  }
       else
-        format.json { render :json => {:user => @user, :url => @picture, :show_info => false} }
+        format.json { render :json => {:user => @user, :url => @picture, :show_info => false, :send_reminder => @user.send_reminder?} }
       end
       format.html
     end
   end
 
   def sort_column
-    %w[time_left name].include?(params[:sort]) ?  params[:sort] : "time_left"
+    %w[completion_time time_left name].include?(params[:sort]) ?  params[:sort] : "time_left"
   end
 
   def sort_direction
     %w[asc desc].include?(params[:order]) ?  params[:order] : "asc"
+  end
+
+  def update_reminder
+    @user = User.find(params[:user_id])
+    respond_to do |format|
+      format.js { 
+        @user.update_attributes(:last_reminder => Time.now) 
+        render :nothing => true
+      }
+    end
   end
 end

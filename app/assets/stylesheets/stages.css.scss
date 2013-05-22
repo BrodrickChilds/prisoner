@@ -19,6 +19,9 @@
     .white-text {
       color: white;
     }
+    li.inline{
+      float:right;
+    }
     .btn-dark {
       background-color: hsl(0, 0%, 16%) !important;
       background-repeat: repeat-x;
@@ -269,8 +272,8 @@
 
     }
  .middle_panel{padding-left:0px;min-width:100%px;align:center;}
- .invite{float:right;min-width:100%;}
- .game-description{margin-top:20px; margin-left:20px; margin-bottom:20px;padding-bottom:20px; font-size:24px;margin-right:20px;}
+ .invite{float:right; margin-right:20px; min-width:100%;}
+ .game-description{margin-top:20px; margin-bottom:20px;padding-bottom:20px; font-size:24px;margin-right:20px;}
  .description{min-width:50%;min-height:50%; font-size:16px;}
 // .awaiting-games{float:right;}
 // .respond{padding-left:7px;width:200px;float:left;}
@@ -284,7 +287,6 @@
 
       padding: 0 20px;
       margin-top: 20px;
-      margin-left:20px;
       margin-bottom:20px;
       margin-right:20px;
       line-height: 1.25;

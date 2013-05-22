@@ -1,6 +1,6 @@
 class StagesController < ApplicationController
   def index
-    @stages = Stage.all
+    @stages = Stage.order("level")
     @stage_ids = @stages.map { |stage| stage.level }
     @games_and_stages = []
     @stages.each do |stage|
@@ -18,7 +18,7 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @stages }
+      format.json { render :json => @stages }
     end
   end
 
@@ -27,6 +27,15 @@ class StagesController < ApplicationController
   def show
     @game = Game.new
     @stage = Stage.find(params[:id])
+    @stages = Stage.order("level")
+    @games_and_stages = []
+    @stages.each do |stage|
+      games = stage.games.where(:user_id => current_user.id, :complete => false)
+      @games_and_stages.append({:stage => stage, :games => games.size})
+    end
+    if current_user.time_left < 1
+      current_user.reset
+    end
     @graph = graph
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     @picture = 'Inmate.jpg'
@@ -41,7 +50,7 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @stage }
+      format.json { render :json => @stage }
     end
   end
 
@@ -52,7 +61,7 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @stage }
+      format.json { render :json => @stage }
     end
   end
 
@@ -68,11 +77,11 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       if @stage.save
-        format.html { redirect_to @stage, notice: 'Stage was successfully created.' }
-        format.json { render json: @stage, status: :created, location: @stage }
+        format.html { redirect_to @stage, :notice => 'Stage was successfully created.' }
+        format.json { render :json => @stage, :status => :created, location: @stage }
       else
-        format.html { render action: "new" }
-        format.json { render json: @stage.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @stage.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -84,11 +93,11 @@ class StagesController < ApplicationController
 
     respond_to do |format|
       if @stage.update_attributes(params[:stage])
-        format.html { redirect_to @stage, notice: 'Stage was successfully updated.' }
+        format.html { redirect_to @stage, :notice => 'Stage was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @stage.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @stage.errors, :status => :unprocessable_entity }
       end
     end
   end
