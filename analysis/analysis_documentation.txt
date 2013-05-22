@@ -1,0 +1,11 @@
+Documentation:
+
+Reads in CSV files, creates Player Object (And Populations)
+Creates "members"
+
+members.games calls all games (from games table)
+returns a list, indexed by order in which the game is read in.  
+
+members.players calls dictionary of players (from users table)
+
+functionalmagic has functions for calculating different statistics
