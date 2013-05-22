@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
         stage_index = 1
       end
     else
-      if game.user_strat == false
+      if game.opp_strat == false
         stage_index = 2
       else
         stage_index = 3
