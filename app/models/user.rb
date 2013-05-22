@@ -107,14 +107,18 @@ class User < ActiveRecord::Base
       end
     else
       if game.opp_strat == false
-        stage_index = 2
-      else
         stage_index = 0
+      else
+        stage_index = 1
       end
     end
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
     if game.stage.level > 1
       update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
+    else
+      if games.where("stage_id = ?", 1).count<3
+        update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
+      end
     end
     if self.time_left() < 1
       reset

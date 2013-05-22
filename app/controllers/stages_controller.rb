@@ -44,7 +44,7 @@ class StagesController < ApplicationController
       game.seen
     end
     session[:level] = @stage.level
-    if current_user && @stage.level == 1 && @games.size == 0
+    if current_user && @stage.level == 1
       Game.generate_tutorial(current_user, @stage.id)
     end
 
