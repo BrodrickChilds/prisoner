@@ -46,6 +46,8 @@ class StagesController < ApplicationController
     session[:level] = @stage.level
     if current_user && @stage.level == 1
       Game.generate_tutorial(current_user, @stage.id)
+    # elsif current_user && @stage.level == 2
+    #   Game.generate_tutorial(current_user, @stage.id)
     end
 
     respond_to do |format|
