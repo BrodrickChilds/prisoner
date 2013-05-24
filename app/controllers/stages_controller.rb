@@ -44,7 +44,7 @@ class StagesController < ApplicationController
       game.seen
     end
     session[:level] = @stage.level
-    if current_user && @stage.level == 1
+    if current_user && @stage.level == 1 && Game.where(:opp_id => current_user.id, :complete => false, :stage_id => 1).count < 1
       Game.generate_tutorial(current_user, @stage.id)
     elsif current_user && @stage.level == 2 && Bot.challenge(current_user.id, @stage.level)
       Game.generate_bot1(current_user, @stage.id)
