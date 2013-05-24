@@ -99,8 +99,8 @@ class User < ActiveRecord::Base
   end
 
   def update_score(game, user_index)
-    if game.opp_id == game.user_id and game.stage_id > 1
-      return Bot.create(:user_id => game.user_id, :stage_id => game.stage_id, :last_challenge => DateTime.current())
+    if game.opp_id == 1 and user_index == 0 and game.stage_id > 1
+      Bot.update(game.user_id, game.stage_id)
     end
     if game.user_strat
       if game.opp_strat

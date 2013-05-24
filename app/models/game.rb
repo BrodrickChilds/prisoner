@@ -30,10 +30,10 @@ def self.generate_bot1(user, stage_id)
       recent_game = Game.where("user_id = ? OR opp_id = ?", user.id, user.id).order("updated_at DESC").limit(1)
       opp_TFT = recent_game.pluck(:user_strat)
       if opp_TFT == [true]
-        game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: user.id, user_strat: false, opp_strat: true, complete: false, seen_bit: false) 
+        game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: 1, user_strat: false, opp_strat: true, complete: false, seen_bit: false) 
         game.save
       else
-        game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: user.id, user_strat: true, opp_strat: false, complete: false, seen_bit: false) 
+        game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: 1, user_strat: true, opp_strat: false, complete: false, seen_bit: false) 
         game.save
       end
     end
