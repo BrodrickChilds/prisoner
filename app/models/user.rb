@@ -90,6 +90,22 @@ class User < ActiveRecord::Base
     return friend_ids
   end
 
+  def self.gen_opponents(graph)
+    friends = friend_ids(graph)
+    friend_num = friends.length
+    offset = rand(friend_num)
+    friend_id = friends[offset]
+    return User.find(friend_id)
+  end
+
+
+
+
+
+
+
+
+
   def self.opponent_name(opp, user)
     if opp == user
       return "Big Pete"

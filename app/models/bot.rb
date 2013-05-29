@@ -7,7 +7,7 @@ class Bot < ActiveRecord::Base
   	if recent_game.length== 0
   		return true
   	else
-  		lastplayed = recent_game[0].last_challenge < 1.day.ago
+  		lastplayed = recent_game[0].last_challenge < 3.hours.ago
   		return lastplayed
   	end
   end
