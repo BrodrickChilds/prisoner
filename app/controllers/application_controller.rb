@@ -23,4 +23,6 @@ class ApplicationController < ActionController::Base
   def graph
     @graph = Koala::Facebook::API.new(current_user.oauth_token)
   end
+
 end
+

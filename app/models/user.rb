@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_fb_friends(graph)
+  def self.get_fb_friends(graph)
     friends = graph.get_connections("me", "friends")
     return friends
   end
@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
 
-  def friend_ids(graph)
+  def self.friend_ids(graph)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     friends = User.where(:uid => friend_fbids)
@@ -90,20 +90,18 @@ class User < ActiveRecord::Base
     return friend_ids
   end
 
-  def self.gen_opponents(graph)
+
+  def self.gen_opponents(graph, num)
     friends = friend_ids(graph)
-    friend_num = friends.length
-    offset = rand(friend_num)
-    friend_id = friends[offset]
-    return User.find(friend_id)
+    friend_ids = []
+    for i in 0..num-1
+      friend_num = friends.length
+      offset = rand(friend_num)
+      friend_ids.push(friends[offset])
+      friends.delete(friends[offset])
+    end
+    return friend_ids
   end
-
-
-
-
-
-
-
 
 
   def self.opponent_name(opp, user)
