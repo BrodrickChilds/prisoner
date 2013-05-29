@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509211828) do
+ActiveRecord::Schema.define(:version => 20130525193449) do
+
+  create_table "bots", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "stage_id"
+    t.datetime "last_challenge"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "gradual"
+  end
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"

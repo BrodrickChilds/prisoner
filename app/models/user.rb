@@ -99,6 +99,9 @@ class User < ActiveRecord::Base
   end
 
   def update_score(game, user_index)
+    if game.opp_id == 1 and user_index == 0 and game.stage_id > 1
+      Bot.update(game.user_id, game.stage_id)
+    end
     if game.user_strat
       if game.opp_strat
         stage_index = 3
@@ -106,15 +109,20 @@ class User < ActiveRecord::Base
         stage_index = 2
       end
     else
-      if game.opp_strat
-        stage_index = 1
-      else
+      if game.opp_strat == false
         stage_index = 0
+      else
+        stage_index = 1
       end
     end
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
+    # Bot.create(:user_id => game.user_id, :stage_id => game.stage_id, :last_challenge => DateTime.current())
     if game.stage.level > 1
       update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
+    else
+      if games.where("stage_id = ?", 1).count<3
+        update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
+      end
     end
     if self.time_left() < 1
       reset
