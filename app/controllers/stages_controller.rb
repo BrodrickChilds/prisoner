@@ -43,6 +43,7 @@ class StagesController < ApplicationController
     @result_games.each do |game|
       game.seen
     end
+    @friend_ids = User.gen_opponents(graph, 1)
     session[:level] = @stage.level
     if current_user && @stage.level == 1 && Game.where(:complete => false, :stage_id => 1).count < 1
       Game.generate_tutorial(current_user, @stage.id)

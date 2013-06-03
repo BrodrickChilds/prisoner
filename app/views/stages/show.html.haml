@@ -68,6 +68,7 @@
             -if @stage.level > 1
               Find an inmate
               =render :partial => "games/new", :locals => {:game => @game, :stage => @stage}
+
           .pending-games
             -if @games.size > 0
               %p Inmates waiting for your response
@@ -78,3 +79,5 @@
                 -@picture = @graph.get_picture(game.opponent.uid)
               .game{:id => game.id}
                 =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
+            -@friend_ids.each do |id|
+              .pre-request{:id => id}
