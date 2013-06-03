@@ -67,13 +67,13 @@ class User < ActiveRecord::Base
     return friends
   end
 
-  def facebook_friends? (friend_id, graph)
+  def self.facebook_friends?(friend_id, graph)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     return friend_fbids.include?(User.find(friend_id).uid)
   end
   
-  def facebook_friends(graph, user)
+  def self.facebook_friends(graph, user)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     friend_fbids << user.uid
@@ -91,8 +91,11 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.gen_opponents(graph, num)
+  def self.gen_opponents(current_user, graph, num)
     friends = friend_ids(graph)
+    if friends.length < num
+      return random_user(current_user)
+    end
     friend_ids = []
     for i in 0..num-1
       friend_num = friends.length
