@@ -1,5 +1,6 @@
 class StagesController < ApplicationController
   def index
+    logger.info "got to index stages"
     @stages = Stage.order("level")
     @stage_ids = @stages.map { |stage| stage.level }
     @games_and_stages = []
@@ -29,22 +30,25 @@ class StagesController < ApplicationController
     @stage = Stage.find(params[:id])
     @stages = Stage.order("level")
     @games_and_stages = []
+    
+    logger.info "got to show stages"
     @stages.each do |stage|
       games = stage.games.where(:user_id => current_user.id, :complete => false)
       @games_and_stages.append({:stage => stage, :games => games.size})
     end
-    if current_user.time_left < 1
-      current_user.reset
-    end
+    
     @graph = graph
     @games = @stage.games.where(:user_id => current_user.id, :complete => false) 
     @picture = 'Inmate.jpg'
     @result_games = current_user.result_games(@stage.level)
+    
     @result_games.each do |game|
       game.seen
     end
+    
     @friend_ids = User.gen_opponents(current_user, graph, 1)
     session[:level] = @stage.level
+    
     if current_user && @stage.level == 1 && Game.where(:complete => false, :stage_id => 1).count < 1
       Game.generate_tutorial(current_user, @stage.id)
     elsif current_user && @stage.level == 2 && Bot.challenge(current_user.id, @stage.level) && Game.where(:complete => false, :stage_id => 2).count < 1 && Bot.challenge(current_user.id, @stage.level)
@@ -62,6 +66,7 @@ class StagesController < ApplicationController
   # GET /stages/new
   # GET /stages/new.json
   def new
+    logger.info "got to new stages"
     @stage = Stage.new
 
     respond_to do |format|
@@ -72,12 +77,14 @@ class StagesController < ApplicationController
 
   # GET /stages/1/edit
   def edit
+    logger.info "got to edit stages"
     @stage = Stage.find(params[:id])
   end
 
   # POST /stages
   # POST /stages.json
   def create
+    logger.info "got to create stages"
     @stage = Stage.new(params[:stage])
 
     respond_to do |format|
@@ -94,6 +101,7 @@ class StagesController < ApplicationController
   # PUT /stages/1
   # PUT /stages/1.json
   def update
+    logger.info "got to update stages"
     @stage = Stage.find(params[:id])
 
     respond_to do |format|
@@ -110,6 +118,7 @@ class StagesController < ApplicationController
   # DELETE /stages/1
   # DELETE /stages/1.json
   def destroy
+    logger.info "got to update stages"
     @stage = Stage.find(params[:id])
     @stage.destroy
 

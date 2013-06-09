@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525193449) do
+ActiveRecord::Schema.define(:version => 20130609211358) do
 
   create_table "bots", :force => true do |t|
     t.integer  "user_id"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20130525193449) do
     t.datetime "updated_at",  :null => false
     t.text     "description"
   end
+
+  add_index "stages", ["name"], :name => "index_stages_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "provider"
