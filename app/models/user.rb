@@ -37,13 +37,16 @@ class User < ActiveRecord::Base
 
   def self.random_user(current_user)
     total = User.count
-    offset = rand(total)
-    user = User.first(:offset => offset)
-    while user == current_user
+    if User.count > 1
       offset = rand(total)
       user = User.first(:offset => offset)
+      while user == current_user
+        offset = rand(total)
+        user = User.first(:offset => offset)
+      end
+      return user
     end
-    return user  
+        
   end
 
   def send_reminder?
@@ -92,6 +95,7 @@ class User < ActiveRecord::Base
 
 
   def self.gen_opponents(current_user, graph, num)
+    logger.info "got to gen opp"
     friends = friend_ids(graph)
     if friends.length < num
       return random_user(current_user)
@@ -194,5 +198,5 @@ private
     self.latest_stage ||= 1
     self.time_spent ||= 0
   end
-
 end
+

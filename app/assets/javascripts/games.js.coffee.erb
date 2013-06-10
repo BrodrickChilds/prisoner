@@ -13,9 +13,11 @@ $ ->
   $('a.random-request').click random_handler
   $('a.random-request').click()
 
+level = $('.level').attr('id')
 $(document).ready ->
-  $('.pre-request').each (i, request) =>
-    new_friend_handler($(request).attr('id'))
+  if level > "1"
+    $('.pre-request').each (i, request) =>
+      new_friend_handler($(request).attr('id'))
 
 
 new_friend_handler = (id) ->
