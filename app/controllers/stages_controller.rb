@@ -46,14 +46,15 @@ class StagesController < ApplicationController
       game.seen
     end
     
-    @friend_ids = User.gen_opponents(current_user, graph, 1)
+    
+    @friend_ids = User.gen_opponents(current_user, graph, 2)
     session[:level] = @stage.level
     
     if current_user && @stage.level == 1 && Game.where(:user_id => current_user.id, :complete => false, :stage_id => 1).count < 1
       Game.generate_tutorial(current_user, @stage.id)
-    elsif current_user && @stage.level == 2 && Bot.challenge(current_user.id, @stage.level) && Game.where(:complete => false, :stage_id => 2).count < 1
+    elsif current_user && @stage.level == 2 && Bot.challenge(current_user.id, @stage.level) && Game.where(:user_id => current_user.id, :complete => false, :stage_id => 2).count < 1
       Game.generate_bot1(current_user, @stage.id)
-    elsif current_user && @stage.level == 3 && Bot.update_gradual(current_user.id, @stage.level) && Game.where(:complete => false, :stage_id => 3).count < 1 && Bot.challenge(current_user.id, @stage.level)
+    elsif current_user && @stage.level == 3 && Bot.update_gradual(current_user.id, @stage.level) && Game.where(:user_id => current_user.id, :complete => false, :stage_id => 3).count < 1 && Bot.challenge(current_user.id, @stage.level)
       Game.generate_bot2(current_user, @stage.id)
     end
 

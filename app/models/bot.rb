@@ -3,7 +3,7 @@ class Bot < ActiveRecord::Base
   has_many :games
 
   def self.challenge(user, stage)
-  	recent_game = Bot.find(:all, :conditions => ["user_id = ? AND stage_id = ?", user, stage])
+  	recent_game = Bot.where(:user_id => user, :stage_id => stage)
   	if recent_game.length== 0
   		return true
   	else
@@ -13,7 +13,7 @@ class Bot < ActiveRecord::Base
   end
 
   def self.update(user, stage)
-    recent_game = Bot.find(:all, :conditions => ["user_id = ? AND stage_id = ?", user, stage])
+    recent_game = Bot.where(:user_id => user, :stage_id => stage)
     if recent_game.length== 0
       Bot.create(:user_id => user, :stage_id => stage, :last_challenge => DateTime.current())
     else
@@ -23,9 +23,9 @@ class Bot < ActiveRecord::Base
   end
 
   def self.update_gradual(user, stage)
-    num_played_gradual = Bot.find(:all, :conditions => ["user_id = ? AND stage_id = ?", user, stage]).count
+    num_played_gradual = Bot.where(:user_id => user, :stage_id => stage).count
     if num_played_gradual == 0
-      Bot.create(:user_id => user, :stage_id => stage, :last_challenge => DateTime.current()-24.hours, :gradual => 0)
+      Bot.create(:user_id => user, :stage_id => stage, :last_challenge => DateTime.current()-1.day, :gradual => 0)
       return true
     else
       return true

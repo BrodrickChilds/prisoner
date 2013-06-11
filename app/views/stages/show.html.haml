@@ -80,6 +80,6 @@
                 -@picture = @graph.get_picture(game.opponent.uid)
               .game{:id => game.id}
                 =render :partial => "games/game", :locals => {:picture => @picture, :game => game, :opponent_name => opponent_name}
-
+            
             -@friend_ids.each do |id|
               .pre-request{:id => id}
