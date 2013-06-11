@@ -4,7 +4,7 @@ class Bot < ActiveRecord::Base
 
   def self.challenge(user, stage)
   	recent_game = Bot.where(:user_id => user, :stage_id => stage)
-  	if recent_game.length== 0
+  	if recent_game.count == 0
   		return true
   	else
   		lastplayed = recent_game[0].last_challenge < 3.hours.ago
@@ -14,7 +14,7 @@ class Bot < ActiveRecord::Base
 
   def self.update(user, stage)
     recent_game = Bot.where(:user_id => user, :stage_id => stage)
-    if recent_game.length== 0
+    if recent_game.count == 0
       Bot.create(:user_id => user, :stage_id => stage, :last_challenge => DateTime.current())
     else
       recent_game[0].last_challenge = DateTime.current()
