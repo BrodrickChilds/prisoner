@@ -97,10 +97,12 @@ class User < ActiveRecord::Base
   def self.gen_opponents(current_user, graph, num)
     logger.info "got to gen opp"
     friends = friend_ids(graph)
-    if friends.length < num
-      return random_user(current_user)
-    end
     friend_ids = []
+    if friends.length < num
+      for i in 0..num-1
+        friend_ids.push(random_user(current_user).id)
+      end
+    end
     for i in 0..num-1
       friend_num = friends.length
       offset = rand(friend_num)

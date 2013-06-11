@@ -46,7 +46,8 @@ class StagesController < ApplicationController
       game.seen
     end
     
-    @friend_ids = User.gen_opponents(current_user, graph, 1)
+    
+    @friend_ids = User.gen_opponents(current_user, graph, 2)
     session[:level] = @stage.level
     
     if current_user && @stage.level == 1 && Game.where(:user_id => current_user.id, :complete => false, :stage_id => 1).count < 1
