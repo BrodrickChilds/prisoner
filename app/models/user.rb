@@ -102,12 +102,13 @@ class User < ActiveRecord::Base
       for i in 0..num-1
         friend_ids.push(random_user(current_user).id)
       end
-    end
-    for i in 0..num-1
-      friend_num = friends.length
-      offset = rand(friend_num)
-      friend_ids.push(friends[offset])
-      friends.delete(friends[offset])
+    else
+      for i in 0..num-1
+        friend_num = friends.length
+        offset = rand(friend_num)
+        friend_ids.push(friends[offset])
+        friends.delete(friends[offset])
+      end
     end
     return friend_ids
   end
