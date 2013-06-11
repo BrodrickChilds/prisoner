@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20130609211358) do
     t.text     "description"
   end
 
-  add_index "stages", ["name"], :name => "index_stages_on_name", :unique => true
+  add_index "stages", ["name"], :name => "index_stages_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "provider"
