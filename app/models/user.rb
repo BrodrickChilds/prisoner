@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
 
 
   def self.gen_opponents(current_user, graph, num)
-    logger.info "got to gen opp"
+
     friends = friend_ids(graph)
     friend_ids = []
     if friends.length < num
@@ -111,6 +111,7 @@ class User < ActiveRecord::Base
       end
     end
     return friend_ids
+    logger.info "finished gen opp"
   end
 
 
