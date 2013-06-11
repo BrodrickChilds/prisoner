@@ -37,13 +37,16 @@ class User < ActiveRecord::Base
 
   def self.random_user(current_user)
     total = User.count
-    offset = rand(total)
-    user = User.first(:offset => offset)
-    while user == current_user
+    if User.count > 1
       offset = rand(total)
       user = User.first(:offset => offset)
+      while user == current_user
+        offset = rand(total)
+        user = User.first(:offset => offset)
+      end
+      return user
     end
-    return user  
+        
   end
 
   def send_reminder?
@@ -67,13 +70,13 @@ class User < ActiveRecord::Base
     return friends
   end
 
-  def facebook_friends? (friend_id, graph)
+  def self.facebook_friends?(friend_id, graph)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     return friend_fbids.include?(User.find(friend_id).uid)
   end
   
-  def facebook_friends(graph, user)
+  def self.facebook_friends(graph, user)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     friend_fbids << user.uid
@@ -91,8 +94,12 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.gen_opponents(graph, num)
+  def self.gen_opponents(current_user, graph, num)
+    logger.info "got to gen opp"
     friends = friend_ids(graph)
+    if friends.length < num
+      return random_user(current_user)
+    end
     friend_ids = []
     for i in 0..num-1
       friend_num = friends.length
@@ -191,5 +198,5 @@ private
     self.latest_stage ||= 1
     self.time_spent ||= 0
   end
-
 end
+
