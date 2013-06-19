@@ -67,15 +67,16 @@ def user_start_effects(games):
     user_betrays = 0
     user_cooperates = 0
     for z in games:
-        if z['user_id'] not in user_plays:
-            user_plays[z['user_id']] = [z['user_strat'],float(z['created_at'])]
-        else:
-            if user_plays[z['user_id']][1]<float(z['created_at']):
-                pass
+        if int(z['stage_id']) != 4:
+            if z['user_id'] not in user_plays:
+                user_plays[z['user_id']] = [z['user_strat'],float(z['updated_at'])]
             else:
-                user_plays[z['user_id']] = [z['user_strat'],float(z['created_at'])]
+                if user_plays[z['user_id']][1]<float(z['updated_at']):
+                    pass
+                else:
+                    user_plays[z['user_id']] = [z['user_strat'],float(z['updated_at'])]
     for p in user_plays:
-        if p[0] == 't':
+        if user_plays[p][0] == 't':
             user_betrays +=1
         else:
 ##            print "adding"
@@ -84,19 +85,21 @@ def user_start_effects(games):
 
 
 def opp_start_effects(games):
-    user_plays = {}
+    opp_plays = {}
     user_betrays = 0
     user_cooperates = 0
     for z in games:
-        if z['user_id'] not in user_plays:
-            user_plays[z['user_id']] = [z['user_strat'],float(z['updated_at'])]
-        else:
-            if user_plays[z['user_id']][1]<float(z['updated_at']):
-                pass
+        if int(z['stage_id']) != 4:
+            if z['opp_id'] not in opp_plays:
+                opp_plays[z['opp_id']] = [z['opp_strat'],float(z['created_at'])]
             else:
-                user_plays[z['user_id']] = [z['user_strat'],float(z['updated_at'])]
-    for p in user_plays:
-        if p[0] == 't':
+                if opp_plays[z['opp_id']][1]<float(z['created_at']):
+                    pass
+                else:
+                    opp_plays[z['opp_id']] = [z['opp_strat'],float(z['created_at'])]
+    for p in opp_plays:
+##        print p
+        if opp_plays[p][0] == 't':
             user_betrays +=1
         else:
 ##            print "adding"
@@ -167,14 +170,32 @@ def cond_history(thresh, stage, games):
                     c_count += 1
     print b_count, c_count
     return float(b_count)/(b_count + c_count)
+
+def opp_gender(games, users):
+    b_count = 0
+    c_count = 0
+    for z in games:
+        if z['complete'] == "t" and users[z['user_id']].gender == 'male':
+            if z['user_strat'] == 't':
+                b_count += 1
+            else:
+                c_count += 1
+    return float(b_count)/(b_count + c_count)
+
+def good_pairs(games, thresh):
+    pairs = {}
+    for z in games:
+        if z['complete'] == "t":
+            if (z['opp_id'], z['user_id']) not in pairs and (z['user_id'], z['opp_id']) not in pairs:
+                pairs[(z['opp_id'], z['user_id'])] = 1
+            elif (z['opp_id'], z['user_id']) in pairs:
+                pairs[(z['opp_id'], z['user_id'])] += 1
+            elif (z['user_id'], z['opp_id']) in pairs:
+                pairs[(z['user_id'], z['opp_id'])] += 1
+    for p in pairs:
+        if pairs[p] >= thresh:
+            pass
+        
+        
+        
                 
-            
-                 
-            
-            
-
-
-
-
-
-
