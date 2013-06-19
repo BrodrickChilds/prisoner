@@ -37,13 +37,16 @@ class User < ActiveRecord::Base
 
   def self.random_user(current_user)
     total = User.count
-    offset = rand(total)
-    user = User.first(:offset => offset)
-    while user == current_user
+    if User.count > 1
       offset = rand(total)
       user = User.first(:offset => offset)
+      while user == current_user
+        offset = rand(total)
+        user = User.first(:offset => offset)
+      end
+      return user
     end
-    return user  
+        
   end
 
   def send_reminder?
@@ -62,18 +65,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def get_fb_friends(graph)
+  def self.get_fb_friends(graph)
     friends = graph.get_connections("me", "friends")
     return friends
   end
 
-  def facebook_friends? (friend_id, graph)
+  def self.facebook_friends?(friend_id, graph)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     return friend_fbids.include?(User.find(friend_id).uid)
   end
   
-  def facebook_friends(graph, user)
+  def self.facebook_friends(graph, user)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     friend_fbids << user.uid
@@ -82,13 +85,35 @@ class User < ActiveRecord::Base
   end
 
 
-  def friend_ids(graph)
+  def self.friend_ids(graph)
     fb_friends = get_fb_friends(graph)
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     friends = User.where(:uid => friend_fbids)
     friend_ids = friends.map{|friend| friend.id}
     return friend_ids
   end
+
+
+  def self.gen_opponents(current_user, graph, num)
+
+    friends = friend_ids(graph)
+    friend_ids = []
+    if friends.length < num
+      for i in 0..num-1
+        friend_ids.push(random_user(current_user).id)
+      end
+    else
+      for i in 0..num-1
+        friend_num = friends.length
+        offset = rand(friend_num)
+        friend_ids.push(friends[offset])
+        friends.delete(friends[offset])
+      end
+    end
+    return friend_ids
+    logger.info "finished gen opp"
+  end
+
 
   def self.opponent_name(opp, user)
     if opp == user
@@ -99,6 +124,9 @@ class User < ActiveRecord::Base
   end
 
   def update_score(game, user_index)
+    if game.opp_id == 1 and user_index == 0 and game.stage_id > 1
+      Bot.update(game.user_id, game.stage_id)
+    end
     if game.user_strat
       if game.opp_strat
         stage_index = 3
@@ -113,6 +141,7 @@ class User < ActiveRecord::Base
       end
     end
     user_update_score = Prisoner::Application::PAYOFF[game.stage.level][stage_index][user_index]
+    # Bot.create(:user_id => game.user_id, :stage_id => game.stage_id, :last_challenge => DateTime.current())
     if game.stage.level > 1
       update_attributes(:score => self.score+user_update_score, :time_spent => self.time_spent + 1)
     else
@@ -173,5 +202,5 @@ private
     self.latest_stage ||= 1
     self.time_spent ||= 0
   end
-
 end
+

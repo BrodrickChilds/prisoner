@@ -1,6 +1,7 @@
 from Population import *
 import numpy
 import matplotlib.pyplot as plt
+from operator import itemgetter
 
 def gen_mutual_friends(games):
     mutual_friends = {}
@@ -163,13 +164,92 @@ def cond_history(thresh, stage, games):
                     b_count += 1
                 else:
                     c_count +=1
-            elif int(z['opp_history']) >= thresh:
-                if z['user_history'] == 't':
+            if int(z['opp_history']) >= thresh:
+                if z['user_strat'] == 't':
                     b_count += 1
                 else:
                     c_count += 1
     print b_count, c_count
     return float(b_count)/(b_count + c_count)
+
+# returns (stage number, betrayal rate, games played on that stage)
+def stage_betrayal(games):
+    stage_b = {}
+    for i in range(2,7):
+        b_count = 0
+        c_count = 0
+        play_count = 0
+        for z in games:
+            if z['complete'] == "t" and int(z['stage_id']) == i:
+                play_count += 1
+                if z['opp_strat'] == "t" and z['user_strat'] == "t":
+                    b_count += 2
+                elif z['opp_strat'] == "t" or z['user_strat'] == "t":
+                    b_count += 1
+                    c_count += 1
+                else:
+                    c_count +=2
+        stage_b[i] = (float(b_count)/(b_count + c_count), play_count)
+    out = [(k, v, c) for k, (v,c) in stage_b.iteritems()]
+    return out
+
+#shows betrayal rates for seen/unseen histories
+def info_vs_no_info_stage_betrayal(games):
+    stage_b = {}
+    no_stage_b = {}
+    for i in range(2,7):
+        b_count = 0
+        c_count = 0
+        play_count = 0
+        no_b_count = 0
+        no_c_count = 0
+        no_play_count = 0
+        for z in games:
+            if z['complete'] == "t" and int(z['stage_id']) == i and z['same_parity'] == 't':
+                play_count += 1
+                if z['opp_strat'] == "t" and z['user_strat'] == "t":
+                    b_count += 2
+                elif z['opp_strat'] == "t" or z['user_strat'] == "t":
+                    b_count += 1
+                    c_count += 1
+                else:
+                    c_count +=2
+            elif z['complete'] == "t" and int(z['stage_id']) == i and z['same_parity'] == 'f':
+                no_play_count += 1
+                if z['opp_strat'] == "t" and z['user_strat'] == "t":
+                    no_b_count += 2
+                elif z['opp_strat'] == "t" or z['user_strat'] == "t":
+                    no_b_count += 1
+                    no_c_count += 1
+                else:
+                    no_c_count +=2
+        stage_b[i] = (float(b_count)/(b_count + c_count), play_count)
+        no_stage_b[i] = (float(no_b_count)/(no_b_count + no_c_count), no_play_count)
+    with_hist, without_hist = [(k, v, c) for k, (v,c) in stage_b.iteritems()], [(k, v, c) for k, (v,c) in no_stage_b.iteritems()]
+    print with_hist, "\n"
+    print without_hist
+    return 
+
+#returns a dictionary of players, games played
+#such that # of games played >= thresh (only completed games)
+def good_players(thresh, games):
+    player_dict = {}
+    for z in games:
+        if z['complete'] == "t" and int(z['stage_id'])>1:
+            if z['user_id'] in player_dict:
+                player_dict[z['user_id']] += 1
+            if z['user_id'] not in player_dict:
+                player_dict[z['user_id']] = 1
+            if z['opp_id'] in player_dict:
+                player_dict[z['opp_id']] += 1
+            if z['opp_id'] not in player_dict:
+                player_dict[z['opp_id']] = 1      
+    for k in player_dict.keys():
+        if player_dict[k] < thresh:
+            del player_dict[k]
+    player_list = [(k,v) for k, v in player_dict.iteritems()]
+    print "Number of players playing more than " + str(thresh) + " games: " + str(len(player_list))
+    return sorted(player_list, key = itemgetter(1), reverse = True)
 
 def opp_gender(games, users):
     b_count = 0

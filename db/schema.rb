@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509211828) do
+ActiveRecord::Schema.define(:version => 20130609211358) do
+
+  create_table "bots", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "stage_id"
+    t.datetime "last_challenge"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "gradual"
+  end
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -43,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20130509211828) do
     t.datetime "updated_at",  :null => false
     t.text     "description"
   end
+
+  add_index "stages", ["name"], :name => "index_stages_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "provider"
