@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
       end
     end
     if self.time_left() < 1
-      self.mturk_key='Was freed and recaptured #FXC'+self.id+rand()
+      self.mturk_key='Was freed and recaptured #FXC'+self.id+rand(100000-10000)
       reset
     end
     save
