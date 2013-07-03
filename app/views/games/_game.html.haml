@@ -9,7 +9,8 @@
       =[game.opponent.time_left, 1].max
       Weeks
       %br
-      Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their recent games on this level
+      Betrayed opponents in #{game.opponent.last_five(game.stage.level)}% of their recent games on this level 
+      Betrayed you in #{game.opponent.last_five_same(game.stage.level,game.user.id)}% of their recent games on this level
   .respond
     =link_to "Cooperate", game_respond_path(game, :strategy => false), :method => :put, :class => "game_respond light-link btn btn-success cbutton"
     =link_to "Betray", game_respond_path(game, :strategy => true), :method => :put, :class => "game_respond light-link btn btn-danger cbutton"

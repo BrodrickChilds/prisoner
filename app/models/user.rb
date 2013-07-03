@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   #before_save :default_values
-  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity, :birth_date, :politics, :gender, :religion, :education, :has_info, :completion_time, :time_spent, :last_reminder
+  attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid, :latest_stage, :score, :same_parity, :birth_date, :politics, :gender, :religion, :education, :has_info, :completion_time, :time_spent, :last_reminder,:mturk_key
   has_many :games, :class_name => "Game"
   has_many :opp_games, :class_name => "Game", :foreign_key => "opp_id"
   def self.from_omniauth(auth)
@@ -10,10 +10,11 @@ class User < ActiveRecord::Base
       user.name = auth.info.name
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      user.score ||= 250
+      user.score ||= 350
       user.has_info ||= false
       user.latest_stage = 1
       user.time_spent ||= 0
+      user.mturk_key ||= 'Still in prison'
       user.save!
     end
   end
@@ -59,9 +60,9 @@ class User < ActiveRecord::Base
 
   def reset
     if completion_time && time_spent > completion_time
-      update_attributes(:score => 250, :time_spent => 0)
+      update_attributes(:score => 350, :time_spent => 0)
     else
-      update_attributes(:completion_time => time_spent, :score => 250, :time_spent => 0)
+      update_attributes(:completion_time => time_spent, :score => 350, :time_spent => 0)
     end
   end
 
@@ -150,6 +151,7 @@ class User < ActiveRecord::Base
       end
     end
     if self.time_left() < 1
+      self.mtruk_key='Was freed and recaptured #FXC'+self.id+rand()
       reset
     end
     save
@@ -183,9 +185,26 @@ class User < ActiveRecord::Base
       percent_betray = (betray_num / [recent_games.count, 1].max) * 100
     end
   end
+  
+  def last_five_same(level, other_id)
+    recent_games = Game.where("user_id = ? AND opp_id = ?", id, other_id).where(:complete => true, :stage_id => level).order("updated_at DESC").limit(5)
+    recent_opp_games = Game.where("user_id = ? AND opp_id = ?", other_id, id).where(:complete => true, :stage_id => level).order("updated_at DESC").limit(5)
+    recent_game_ids = recent_games.map{ |game| game.id }
+    recent_opp_game_ids = recent_opp_games.map{ |game| game.id }
+    recent_game_ids = recent_game_ids + recent_opp_game_ids
+    percent_betray = 0
+    if recent_games.count>=5
+      betray_num = Game.where("user_id = ?", id).where(:id => recent_game_ids, :user_strat => true).count + Game.where("opp_id = ?", id).where(:id => recent_game_ids, :opp_strat => true).count
+      percent_betray = (betray_num / 5.0) * 100
+    else
+      betray_num = Game.where("user_id = ?", id).where(:id => recent_game_ids, :user_strat => true).count + Game.where("opp_id = ?", id).where(:id => recent_game_ids, :opp_strat => true).count
+      percent_betray = (betray_num / [recent_games.count, 1].max) * 100
+    end
+  end
 
   def same_parity?(opponent)
-    return id%2 == opponent.id%2
+ #   return id%2 == opponent.id%2
+    return true
   end
 
   def time_left

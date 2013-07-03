@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
   belongs_to :stage
 
   def self.generate_tutorial(user, stage_id)
-    if user.time_left == 250
+    if user.time_left == 350
       game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: user.id, user_strat: false, opp_strat: [true, false].sample, complete: false, seen_bit: false) 
       game.save
     else
@@ -23,7 +23,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.generate_bot1(user, stage_id)
-    if user.time_left == 250
+    if user.time_left == 350
       game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: 1002 , user_strat: false, opp_strat: [true, false].sample, complete: false, seen_bit: false) 
       game.save
     else
@@ -40,7 +40,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.generate_bot2(user, stage_id)
-    if user.time_left == 250
+    if user.time_left == 350
       game = Game.new(user_id: user.id, stage_id: stage_id, opp_id: 1002, user_strat: false, opp_strat: [true, false].sample, complete: false, seen_bit: false) 
       game.save
     else

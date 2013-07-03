@@ -54,6 +54,7 @@ class UsersController < ApplicationController
     end
     if current_user.time_left < 1
       current_user.reset
+      format.html { redirect_to root_path, :flash => {:success => "Congrats you have been released, but the police arrested you again, see if you can get out even quicker this time" }}
     end
     @leaders = @leaders.paginate(:per_page => 10, :page => params[:page])
     @graph = graph

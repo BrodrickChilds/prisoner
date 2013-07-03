@@ -1,6 +1,6 @@
 .row-fluid
   .my-container.span12.profile
-    %h2 Prisoner information sheet 493020-20D
+    %h2 Prisoner Information Sheet
     .span12
       .span10.prisoner-info
         .user-image.span3
@@ -28,7 +28,10 @@
             Time left from the sentence: 
             =pluralize(@user.time_left, "week")
           .stat
+            Status:
+            =@user.mturk_key
+          .stat
             Progress towards freedom
             .progress.progress-striped.active.limit
-              .bar.bar-warning{:style => "width:#{100*(250-(@user.score-@user.time_spent))/250}%"}
+              .bar.bar-warning{:style => "width:#{100*(350-(@user.score-@user.time_spent))/350}%"}
 

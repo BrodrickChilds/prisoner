@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609211358) do
+ActiveRecord::Schema.define(:version => 20130703163459) do
 
   create_table "bots", :force => true do |t|
     t.integer  "user_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20130609211358) do
     t.integer  "completion_time"
     t.integer  "time_spent"
     t.datetime "last_reminder"
+    t.string   "mturk_key"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"
