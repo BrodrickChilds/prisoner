@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   def leaders
     if params[:facebook] == "yes"
-      @leaders = User.facebook_new_friends(graph, current_user)
+      @leaders = User.facebook_friends(graph, current_user)
     else
       @leaders = User.where("score > ?", -500)
     end

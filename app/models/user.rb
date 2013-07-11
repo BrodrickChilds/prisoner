@@ -76,12 +76,6 @@ class User < ActiveRecord::Base
     friend_fbids = fb_friends.map{|friend| friend["id"]}
     return friend_fbids.include?(User.find(friend_id).uid)
   end
-  
-  def self.facebook_new_friends(graph, user)
-    return facebook_friends(graph, user)
-  end
-  
-
 
   def self.facebook_friends(graph, user)
     fb_friends = get_fb_friends(graph)
